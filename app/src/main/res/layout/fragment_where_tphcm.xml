@@ -4,9 +4,10 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.fragmentWhere_TPHCM">
 
-    <TextView
+    <ExpandableListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/tphcm" />
-
+        android:id="@+id/exLstWhere"
+        android:background="@color/colorGray">
+    </ExpandableListView>
 </FrameLayout>

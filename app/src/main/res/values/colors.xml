@@ -8,4 +8,6 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorBlack">#000000</color>
     <color name="colorGray">#EEEEEE</color>
+    <color name="colorGrayButtonWhere">#EAEAEA</color>
+    <color name="colorTextButtonWhere">#959595</color>
 </resources>
