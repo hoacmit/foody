@@ -1,15 +1,13 @@
 package hoa14110071.chieuthusau.foodyversion1.Fragment;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTabHost;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.TabHost;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import hoa14110071.chieuthusau.foodyversion1.R;
 
@@ -22,20 +20,21 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         // Required empty public constructor
     }
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 //        View view = inflater.inflate(R.layout.fragment_where, container, false);
-
-
+//        tabHost = (FragmentTabHost) view.findViewById(R.id.tabhost);
 //        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-        //tabHost = (FragmentTabHost) view.findViewById(R.id.tabhost);
-
         tabHost = new FragmentTabHost(getActivity());
         tabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
-
         tabHost.addTab(tabHost.newTabSpec("Mới nhất").setIndicator("Mới nhất"),
                 fragmentWhere_MoiNhat.class, null);
         tabHost.addTab(tabHost.newTabSpec("Danh mục").setIndicator("Danh mục"),
@@ -44,15 +43,16 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
                 fragmentWhere_TPHCM.class, null);
         tabHost.setOnTabChangedListener(this);
 
-        LinearLayout tabOne = (LinearLayout) tabHost.getTabWidget().getChildTabViewAt(0);
-        final TextView tabOneTitle = (TextView) tabOne.findViewById(android.R.id.title);
-        LinearLayout tabTwo = (LinearLayout) tabHost.getTabWidget().getChildTabViewAt(1);
-        final TextView tabTwoTitle = (TextView) tabTwo.findViewById(android.R.id.title);
-        LinearLayout tabThree = (LinearLayout) tabHost.getTabWidget().getChildTabViewAt(2);
-        final TextView tabThreeTitle = (TextView) tabThree.findViewById(android.R.id.title);
+
+//        LinearLayout tabOne = (LinearLayout) tabHost.getTabWidget().getChildTabViewAt(0);
+//        final TextView tabOneTitle = (TextView) tabOne.findViewById(android.R.id.title);
+//        LinearLayout tabTwo = (LinearLayout) tabHost.getTabWidget().getChildTabViewAt(1);
+//        final TextView tabTwoTitle = (TextView) tabTwo.findViewById(android.R.id.title);
+//        LinearLayout tabThree = (LinearLayout) tabHost.getTabWidget().getChildTabViewAt(2);
+//        final TextView tabThreeTitle = (TextView) tabThree.findViewById(android.R.id.title);
 //        setupViewPager(viewPager);
         //setupTabHost(tabHost);
-        tabOne.setOnLongClickListener(new View.OnLongClickListener() {
+     /*   tabOne.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View view) {
                 tabOneTitle.setText(titleChange);
@@ -73,12 +73,18 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
             public boolean onLongClick(View view) {
                 tabThreeTitle.setText("New Tab 3");
                 return true;
-            }
-        });
-
+                    }
+                });*/
+//        tabOne.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                tabOneTitle.setText(titleChange);
+//            }
+//        });
 
 
         return tabHost;
+//        return view;
     }
 
     // fake content for tabhost

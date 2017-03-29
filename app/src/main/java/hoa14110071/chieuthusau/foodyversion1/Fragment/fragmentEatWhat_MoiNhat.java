@@ -7,7 +7,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -57,6 +62,13 @@ public class fragmentEatWhat_MoiNhat extends Fragment {
         lstMoiNhatEatWhat = (ListView) view.findViewById(R.id.lstMoiNhatEatWhat);
         moiNhatAdapter = new DanhMucAdapter(getActivity(), R.layout.list_row_item, listViewItemArrayList);
         lstMoiNhatEatWhat.setAdapter(moiNhatAdapter);
+        lstMoiNhatEatWhat.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                TextView tv = (TextView)view.findViewById(R.id.txtName);
+                Toast.makeText(getActivity(), tv.getText(), Toast.LENGTH_SHORT).show();
+            }
+        });
         return view;
     }
 }

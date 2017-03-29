@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -69,6 +70,14 @@ public class fragmentWhere_DanhMuc extends Fragment {
         lstDanhMucWhere = (ListView) view.findViewById(R.id.lstDanhMucWhere);
         danhMucAdapter = new DanhMucAdapter(getActivity(), R.layout.list_row_item, listViewItemArrayList);
         lstDanhMucWhere.setAdapter(danhMucAdapter);
+        lstDanhMucWhere.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                TextView tv =(TextView)view.findViewById(R.id.txtName);
+                Toast.makeText(getActivity(), tv.getText(),Toast.LENGTH_SHORT).show();
+            }
+        });
         return view;
     }
 }

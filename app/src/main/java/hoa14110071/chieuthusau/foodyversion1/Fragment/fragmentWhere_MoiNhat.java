@@ -1,26 +1,33 @@
 package hoa14110071.chieuthusau.foodyversion1.Fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import hoa14110071.chieuthusau.foodyversion1.JavaClass.DanhMucAdapter;
+import hoa14110071.chieuthusau.foodyversion1.JavaClass.MoiNhatAdapter;
 import hoa14110071.chieuthusau.foodyversion1.Object.Item;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
 public class fragmentWhere_MoiNhat extends Fragment {
     private ListView lstMoiNhatWhere;
-    private DanhMucAdapter moiNhatAdapter;
+    private MoiNhatAdapter moiNhatAdapter;
     private ArrayList<Item> listViewItemArrayList = new ArrayList<>();
+
+    public static int[] defaultImage = {R.drawable.home_ic_filter_latest,R.drawable.home_ic_filter_most_near,R.drawable.home_ic_filter_top_of_week,
+            R.drawable.home_ic_filter_tourist,R.drawable.home_ic_filter_ecard,R.drawable.home_ic_filter_most_reservation,
+            R.drawable.home_ic_filter_bankcard, R.drawable.home_ic_filter_bankcard
+    };
+
+    public static int[] changedImage = {R.drawable.home_ic_filter_latest_act,R.drawable.home_ic_filter_most_near_act,R.drawable.home_ic_filter_top_of_week_act,
+            R.drawable.home_ic_filter_tourist_act,R.drawable.home_ic_filter_ecard_act,R.drawable.home_ic_filter_most_reservation_act,
+            R.drawable.home_ic_filter_bankcard_act, R.drawable.home_ic_filter_bankcard_act
+    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -53,10 +60,15 @@ public class fragmentWhere_MoiNhat extends Fragment {
         View view = inflater.inflate(R.layout.fragment_where_moi_nhat, container, false);
 
         lstMoiNhatWhere = (ListView) view.findViewById(R.id.lstMoiNhatWhere);
-        moiNhatAdapter = new DanhMucAdapter(getActivity(), R.layout.list_row_item, listViewItemArrayList);
+        moiNhatAdapter = new MoiNhatAdapter(getActivity(), R.layout.list_row_item, listViewItemArrayList);
         lstMoiNhatWhere.setAdapter(moiNhatAdapter);
+
+
         return view;
     }
+
+
+
 
 
 //    public View getView(int position, View convertView, ViewGroup parent) {

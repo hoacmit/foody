@@ -1,34 +1,31 @@
 package hoa14110071.chieuthusau.foodyversion1.JavaClass;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import hoa14110071.chieuthusau.foodyversion1.Object.Item;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
-import static hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentWhere.titleChange;
-
 /**
- * Created by minhh on 3/21/2017.
+ * Created by minhh on 3/28/2017.
  */
 
-public class DanhMucAdapter extends ArrayAdapter<Item> {
+public class MoiNhatAdapter extends ArrayAdapter<Item> {
     Activity context = null;
     int layoutId;
     ArrayList<Item> listViewItemArrayList = null;
+    public static int indexChanged=0;
 
-    public DanhMucAdapter(Activity context, int layoutId, ArrayList<Item> listViewItemArrayList) {
+    public MoiNhatAdapter(Activity context, int layoutId, ArrayList<Item> listViewItemArrayList) {
         super(context, layoutId, listViewItemArrayList);
         this.context = context;
         this.layoutId = layoutId;
@@ -36,9 +33,8 @@ public class DanhMucAdapter extends ArrayAdapter<Item> {
     }
 
     public View getView(final int position, final View convertView, ViewGroup parent) {
-        final ViewHolder viewHolder = new ViewHolder();
+        final DanhMucAdapter.ViewHolder viewHolder = new DanhMucAdapter.ViewHolder();
         View view = convertView;
-
         if (view == null) {
             view = LayoutInflater.from(context).inflate(layoutId, null);
             viewHolder.imageView = (ImageView) view.findViewById(R.id.imgPic);
@@ -48,14 +44,30 @@ public class DanhMucAdapter extends ArrayAdapter<Item> {
         viewHolder.imageView.setImageResource(listViewItemArrayList.get(position).getImgAnh());
         viewHolder.textView.setText(listViewItemArrayList.get(position).getTxtName());
         viewHolder.checkBox.setChecked(listViewItemArrayList.get(position).isCheck());
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
+        view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                switch (position) {
+                    case 0:
+                        viewHolder.imageView.setImageResource(R.drawable.home_ic_filter_latest);
+                        viewHolder.textView.setTextColor(Color.parseColor("#000000"));
+                        viewHolder.checkBox.setChecked(true);
+
+                        viewHolder.imageView.setImageResource(R.drawable.home_ic_filter_latest_act);
+                        viewHolder.textView.setTextColor(Color.parseColor("#CC0000"));
+                        viewHolder.checkBox.setChecked(true);
+                        break;
+                    case 1:
+                        viewHolder.imageView.setImageResource(R.drawable.home_ic_filter_most_near_act);
+                        viewHolder.textView.setTextColor(Color.parseColor("#CC0000"));
+                        viewHolder.checkBox.setChecked(true);
+                        break;
+                }
 //                listViewItemArrayList.get(position).setCheck(true);
 //                viewHolder.checkBox.setChecked(listViewItemArrayList.get(position).isCheck());
-//                titleChange=listViewItemArrayList.get(position).getTxtName();
-//            }
-//        });
+//                titleChange = listViewItemArrayList.get(position).getTxtName();
+            }
+        });
         return view;
     }
 
@@ -65,5 +77,3 @@ public class DanhMucAdapter extends ArrayAdapter<Item> {
         CheckBox checkBox;
     }
 }
-
-

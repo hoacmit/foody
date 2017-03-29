@@ -6,7 +6,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
@@ -62,7 +64,7 @@ public class CustomAdapterExpandableListview extends BaseExpandableListAdapter {
     }
 
     @Override
-    public View getGroupView(final int groupPosition, boolean isExpanded, View convertView, final ViewGroup parent) {
+    public View getGroupView(final int groupPosition,final boolean isExpanded, View convertView, final ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater layoutInflater = LayoutInflater.from(mContext);
             convertView = layoutInflater.inflate(R.layout.list_row_header_expandable,parent,false);
@@ -74,6 +76,16 @@ public class CustomAdapterExpandableListview extends BaseExpandableListAdapter {
         btnChoosen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                if(isExpanded)
+                    ((ExpandableListView) parent).collapseGroup(groupPosition);
+                else
+                    ((ExpandableListView) parent).expandGroup(groupPosition, true);
+            }
+        });
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext,"Group",Toast.LENGTH_SHORT).show();
             }
         });
         return convertView;
@@ -87,6 +99,12 @@ public class CustomAdapterExpandableListview extends BaseExpandableListAdapter {
         }
         TextView tvStreet = (TextView) convertView.findViewById(R.id.tvStreet);
         tvStreet.setText(String.valueOf(((Street)getChild(groupPosition,childPosition)).getStreetName()));
+        convertView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(mContext,"Child",Toast.LENGTH_SHORT).show();
+            }
+        });
         return convertView;
     }
 
