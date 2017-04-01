@@ -1,12 +1,10 @@
 package hoa14110071.chieuthusau.foodyversion1.JavaClass;
 
 import android.app.Activity;
-import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +12,7 @@ import java.util.ArrayList;
 
 import hoa14110071.chieuthusau.foodyversion1.Object.Item;
 import hoa14110071.chieuthusau.foodyversion1.R;
+
 
 /**
  * Created by minhh on 3/28/2017.
@@ -23,7 +22,7 @@ public class MoiNhatAdapter extends ArrayAdapter<Item> {
     Activity context = null;
     int layoutId;
     ArrayList<Item> listViewItemArrayList = null;
-    public static int indexChanged=0;
+    public static int lastIndexChanged =0;
 
     public MoiNhatAdapter(Activity context, int layoutId, ArrayList<Item> listViewItemArrayList) {
         super(context, layoutId, listViewItemArrayList);
@@ -33,47 +32,66 @@ public class MoiNhatAdapter extends ArrayAdapter<Item> {
     }
 
     public View getView(final int position, final View convertView, ViewGroup parent) {
-        final DanhMucAdapter.ViewHolder viewHolder = new DanhMucAdapter.ViewHolder();
         View view = convertView;
+        final ViewHolder viewHolder;
         if (view == null) {
             view = LayoutInflater.from(context).inflate(layoutId, null);
-            viewHolder.imageView = (ImageView) view.findViewById(R.id.imgPic);
-            viewHolder.textView = (TextView) view.findViewById(R.id.txtName);
-            viewHolder.checkBox = (CheckBox) view.findViewById(R.id.cbChoose);
-        }
-        viewHolder.imageView.setImageResource(listViewItemArrayList.get(position).getImgAnh());
-        viewHolder.textView.setText(listViewItemArrayList.get(position).getTxtName());
-        viewHolder.checkBox.setChecked(listViewItemArrayList.get(position).isCheck());
-        view.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (position) {
-                    case 0:
-                        viewHolder.imageView.setImageResource(R.drawable.home_ic_filter_latest);
-                        viewHolder.textView.setTextColor(Color.parseColor("#000000"));
-                        viewHolder.checkBox.setChecked(true);
+            viewHolder = new ViewHolder();
 
-                        viewHolder.imageView.setImageResource(R.drawable.home_ic_filter_latest_act);
-                        viewHolder.textView.setTextColor(Color.parseColor("#CC0000"));
-                        viewHolder.checkBox.setChecked(true);
-                        break;
-                    case 1:
-                        viewHolder.imageView.setImageResource(R.drawable.home_ic_filter_most_near_act);
-                        viewHolder.textView.setTextColor(Color.parseColor("#CC0000"));
-                        viewHolder.checkBox.setChecked(true);
-                        break;
-                }
-//                listViewItemArrayList.get(position).setCheck(true);
-//                viewHolder.checkBox.setChecked(listViewItemArrayList.get(position).isCheck());
-//                titleChange = listViewItemArrayList.get(position).getTxtName();
-            }
-        });
+            viewHolder.imagePic = (ImageView) view.findViewById(R.id.imgPic);
+            viewHolder.textView = (TextView) view.findViewById(R.id.txtName);
+            viewHolder.imageCheck = (ImageView) view.findViewById(R.id.imgCheck);
+            view.setTag(viewHolder);
+        }else {
+            viewHolder = (ViewHolder) view.getTag();
+        }
+        viewHolder.imagePic.setImageResource(listViewItemArrayList.get(position).getImgAnh());
+        viewHolder.textView.setText(listViewItemArrayList.get(position).getTxtName());
+        if(listViewItemArrayList.get(position).isCheck())
+        {
+            viewHolder.imageCheck.setVisibility(View.VISIBLE);
+        }else
+        {
+            viewHolder.imageCheck.setVisibility(View.GONE);
+        }
+//        view.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                switch (position) {
+//                    case 0:
+//                        listViewItemArrayList.get(lastIndexChanged).setCheck(false);
+////                        listViewItemArrayList.get(lastIndexChanged).setImgAnh(defaultImage[lastIndexChanged]);
+//
+////                        ViewHolder.imagePic.setImageResource(R.drawable.home_ic_filter_latest);
+////                        ViewHolder.textView.setTextColor(Color.parseColor("#000000"));
+////                        ViewHolder.checkBox.setChecked(false);
+//                        ViewHolder.imagePic.setImageResource(R.drawable.home_ic_filter_latest_act);
+//                        ViewHolder.textView.setTextColor(Color.parseColor("#CC0000"));
+//                        listViewItemArrayList.get(0).setCheck(true);
+//                        lastIndexChanged=0;
+//                        break;
+//                    case 1:
+//                        listViewItemArrayList.get(lastIndexChanged).setCheck(false);
+////                        listViewItemArrayList.get(lastIndexChanged).setImgAnh(defaultImage[lastIndexChanged]);
+//
+//                        ViewHolder.imagePic.setImageResource(R.drawable.home_ic_filter_most_near_act);
+//                        ViewHolder.textView.setTextColor(Color.parseColor("#CC0000"));
+//                        listViewItemArrayList.get(1).setCheck(true);
+//                        lastIndexChanged=1;
+//                        break;
+//                }
+////                listViewItemArrayList.get(position).setCheck(true);
+////                ViewHolder.checkBox.setChecked(listViewItemArrayList.get(position).isCheck());
+////                titleChange = listViewItemArrayList.get(position).getTxtName();
+//            }
+//        });
+
         return view;
     }
 
     static class ViewHolder {
-        ImageView imageView;
+        ImageView imagePic;
         TextView textView;
-        CheckBox checkBox;
+        ImageView imageCheck;
     }
 }

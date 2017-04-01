@@ -7,4 +7,7 @@
     <string name="huy">Hủy</string>
     <string name="BuiThiNghe">Bùi Thị Nghé</string>
     <string name="duong">33 đường</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -9,10 +9,10 @@ public class Item {
     String txtName;
     boolean check;
 
-    public Item(int imgAnh, String txtName, boolean check) {
-        this.imgAnh = imgAnh;
-        this.txtName = txtName;
-        this.check = check;
+    public Item(int imgAnhc, String txtNamec, boolean checkc) {
+        this.imgAnh = imgAnhc;
+        this.txtName = txtNamec;
+        this.check = checkc;
     }
 
     public int getImgAnh() {
@@ -38,4 +38,9 @@ public class Item {
     public void setCheck(boolean check) {
         this.check = check;
     }
+
+
+
+
+
 }

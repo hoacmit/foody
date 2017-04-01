@@ -5,19 +5,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.CheckBox;
 import android.widget.ImageView;
-import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
-import java.util.StringTokenizer;
 
 import hoa14110071.chieuthusau.foodyversion1.Object.Item;
 import hoa14110071.chieuthusau.foodyversion1.R;
-
-import static hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentWhere.titleChange;
 
 /**
  * Created by minhh on 3/21/2017.
@@ -41,18 +35,24 @@ public class DanhMucAdapter extends ArrayAdapter<Item> {
 
         if (view == null) {
             view = LayoutInflater.from(context).inflate(layoutId, null);
-            viewHolder.imageView = (ImageView) view.findViewById(R.id.imgPic);
+            viewHolder.imagePic = (ImageView) view.findViewById(R.id.imgPic);
             viewHolder.textView = (TextView) view.findViewById(R.id.txtName);
-            viewHolder.checkBox = (CheckBox) view.findViewById(R.id.cbChoose);
+            viewHolder.imageCheck = (ImageView) view.findViewById(R.id.imgCheck);
         }
-        viewHolder.imageView.setImageResource(listViewItemArrayList.get(position).getImgAnh());
+        viewHolder.imagePic.setImageResource(listViewItemArrayList.get(position).getImgAnh());
         viewHolder.textView.setText(listViewItemArrayList.get(position).getTxtName());
-        viewHolder.checkBox.setChecked(listViewItemArrayList.get(position).isCheck());
+        if(listViewItemArrayList.get(position).isCheck())
+        {
+            viewHolder.imageCheck.setVisibility(View.VISIBLE);
+        }else
+        {
+            viewHolder.imageCheck.setVisibility(View.GONE);
+        }
 //        view.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
 //                listViewItemArrayList.get(position).setCheck(true);
-//                viewHolder.checkBox.setChecked(listViewItemArrayList.get(position).isCheck());
+//                ViewHolder.checkBox.setChecked(listViewItemArrayList.get(position).isCheck());
 //                titleChange=listViewItemArrayList.get(position).getTxtName();
 //            }
 //        });
@@ -60,9 +60,9 @@ public class DanhMucAdapter extends ArrayAdapter<Item> {
     }
 
     static class ViewHolder {
-        ImageView imageView;
+        ImageView imagePic;
         TextView textView;
-        CheckBox checkBox;
+        ImageView imageCheck;
     }
 }
 

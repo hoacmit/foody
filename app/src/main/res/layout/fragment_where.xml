@@ -5,7 +5,7 @@
     tools:context=".Fragment.fragmentWhere">
 
 
-    <android.support.v4.app.FragmentTabHost
+    <TabHost
         android:id="@+id/tabhost"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -22,14 +22,46 @@
 
             <FrameLayout
                 android:id="@android:id/tabcontent"
-                android:layout_width="0dp"
-                android:layout_height="0dp">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <LinearLayout
+                    android:id="@+id/tabMoiNhat"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/fragment_where_moi_nhat" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabDanhMuc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/fragment_where_danh_muc" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabTPHCM"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/fragment_where_tphcm" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/tabMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                    <include layout="@layout/fragment_where_main" />
+                </LinearLayout>
             </FrameLayout>
 
-            <FrameLayout
-                android:id="@+id/realtabcontent"
-                android:layout_width="match_parent"
-                android:layout_height="0dp" />
         </LinearLayout>
-    </android.support.v4.app.FragmentTabHost>
+    </TabHost>
 </FrameLayout>

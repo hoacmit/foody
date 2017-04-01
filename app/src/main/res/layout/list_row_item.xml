@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="50dp">
 
@@ -9,23 +10,26 @@
         android:id="@+id/imgPic"
         android:src="@drawable/foody"
         android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp" />
+        android:layout_marginBottom="6dp"
+        tools:ignore="ContentDescription" />
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/txtName"
         android:text="Quán ăn vỉa hè"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="12dp"
         android:layout_toRightOf="@+id/imgPic"
         android:layout_marginLeft="10dp"
         android:textStyle="bold"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        tools:ignore="HardcodedText" />
 
-    <CheckBox
-        android:id="@+id/cbChoose"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:checked="true"
+    <ImageView
+        android:id="@+id/imgCheck"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:background="@drawable/check"
         android:layout_alignParentRight="true"
-        android:layout_marginTop="0dp"/>
+        android:layout_marginTop="10dp"
+        tools:ignore="ContentDescription" />
 </RelativeLayout>
