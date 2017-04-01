@@ -45,14 +45,19 @@ public class MoiNhatAdapter extends ArrayAdapter<Item> {
         }else {
             viewHolder = (ViewHolder) view.getTag();
         }
+
+
         viewHolder.imagePic.setImageResource(listViewItemArrayList.get(position).getImgAnh());
         viewHolder.textView.setText(listViewItemArrayList.get(position).getTxtName());
+
         if(listViewItemArrayList.get(position).isCheck())
         {
+            viewHolder.textView.setTextColor(context.getResources().getColor(R.color.colorRed));
             viewHolder.imageCheck.setVisibility(View.VISIBLE);
         }else
         {
             viewHolder.imageCheck.setVisibility(View.GONE);
+            viewHolder.textView.setTextColor(context.getResources().getColor(R.color.colorStroke));
         }
 //        view.setOnClickListener(new View.OnClickListener() {
 //            @Override

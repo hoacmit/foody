@@ -6,8 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TabHost;
+import android.widget.TabWidget;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -15,6 +18,8 @@ import hoa14110071.chieuthusau.foodyversion1.JavaClass.DanhMucAdapter;
 import hoa14110071.chieuthusau.foodyversion1.JavaClass.MoiNhatAdapter;
 import hoa14110071.chieuthusau.foodyversion1.Object.Item;
 import hoa14110071.chieuthusau.foodyversion1.R;
+
+import static hoa14110071.chieuthusau.foodyversion1.JavaClass.MoiNhatAdapter.lastIndexChanged;
 
 public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListener {
     //    private ViewPager viewPager;
@@ -43,6 +48,10 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
 
 
     public static String[] arraymoiNhatString = {"Mới nhất", "Gần tôi", "Phổ biến", "Du khách", "Ưu đãi E-card", "Đặt chỗ", "Ưu đãi thẻ", "Đặt giao hàng"};
+
+
+
+    private TabWidget tabWidget;
 
     public fragmentWhere() {
         // Required empty public constructor
@@ -113,19 +122,36 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         lstMoiNhatWhere.setAdapter(moiNhatAdapter);
 
 
+        lstMoiNhatWhere.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                listViewItemArrayListMoiNhat.get(lastIndexChanged).setCheck(false);
+                listViewItemArrayListMoiNhat.get(lastIndexChanged).setImgAnh(defaultImage[lastIndexChanged]);
+
+                listViewItemArrayListMoiNhat.get(position).setCheck(true);
+                listViewItemArrayListMoiNhat.get(position).setImgAnh(changedImage[position]);
+
+                lastIndexChanged=position;
+                moiNhatAdapter.notifyDataSetChanged();
+
+                int tabSelected = tabHost.getCurrentTab();
+//                tabHost.getTabWidget().getChildAt()
+
+                tabHost.setCurrentTab(3);
+            }
+        });
+
+
         lstDanhMucWhere = (ListView) view.findViewById(R.id.lstDanhMucWhere);
         danhMucAdapter = new DanhMucAdapter(getActivity(), R.layout.list_row_item, listViewItemArrayListDanhMuc);
         lstDanhMucWhere.setAdapter(danhMucAdapter);
 
 
-        lstMoiNhatWhereSetup();
+
+
         return view;
     }
 
-
-    private void lstMoiNhatWhereSetup() {
-
-    }
 
     private void tabHostSetup() {
         tabHost.setup();
@@ -150,9 +176,32 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         tabMain.setContent(R.id.tabMain);
         tabHost.addTab(tabMain);
 
-        tabHost.setCurrentTab(0);
+//        TabWidget tabWidget = tabHost.getTabWidget();
+        tabWidget = tabHost.getTabWidget();
+
+        final TextView tvMoiNhat = (TextView) tabWidget.getChildTabViewAt(0).findViewById(android.R.id.title);
+        final TextView tvDanhMuc = (TextView) tabWidget.getChildTabViewAt(1).findViewById(android.R.id.title);
+        final TextView tvTPHCM = (TextView) tabWidget.getChildTabViewAt(2).findViewById(android.R.id.title);
+
+        tvMoiNhat.setAllCaps(false);
+        tvDanhMuc.setAllCaps(false);
+        tvTPHCM.setAllCaps(false);
+
+        tabWidget.getChildAt(3).setVisibility(View.GONE);
+
+        tabWidget.getChildAt(0).setBackgroundResource(R.drawable.background_tabhost_unselected);
+        tabWidget.getChildAt(1).setBackgroundResource(R.drawable.background_tabhost_unselected);
+        tabWidget.getChildAt(2).setBackgroundResource(R.drawable.background_tabhost_unselected);
+
+        tabHost.setCurrentTab(3);
+
+        tabHost.setOnTabChangedListener(this);
 
     }
+
+
+
+
     // Inflate the layout for this fragment
 //        View view = inflater.inflate(R.layout.fragment_where, container, false);
 //        tabHost = (FragmentTabHost) view.findViewById(R.id.tabhost);
@@ -270,14 +319,11 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
     //TabHostlistener
     @Override
     public void onTabChanged(String tabId) {
-//        TextView tv = (TextView) tabHost.getCurrentView();
-//        tv.setText("aaaaaaaa");
-//        viewPager.setCurrentItem(selectedItem);
-    }
-
-
-    public void SelectTabMain() {
-        tabHost.setCurrentTab(3);
+        for (int i=0 ; i< tabWidget.getChildCount();i++)
+        {
+            tabWidget.getChildAt(i).setBackgroundResource(R.drawable.background_tabhost_unselected);
+        }
+        tabWidget.getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.drawable.background_tabhost_selected);
     }
 
 
