@@ -4,10 +4,42 @@
     android:layout_height="match_parent"
     tools:context=".Fragment.fragmentWhere_TPHCM">
 
-    <ExpandableListView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:id="@+id/exLstWhere"
-        android:background="@color/colorGray">
-    </ExpandableListView>
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:id="@+id/relative"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorGray">
+
+            <TextView
+                android:id="@+id/tvChooseCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="3"
+                android:text="TP. Hồ Chí Minh"
+                android:textColor="@color/colorRed"
+                android:textStyle="bold" />
+
+            <Button
+                android:id="@+id/btnChooseCity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@drawable/ic_location_on_black_24dp"
+                android:text="@string/doitinhthanh"
+                android:textAllCaps="false" />
+        </LinearLayout>
+
+        <ExpandableListView
+            android:id="@+id/exLstWhere"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/relative"
+            android:background="@color/colorGray"/>
+    </RelativeLayout>
+
 </FrameLayout>

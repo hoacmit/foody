@@ -1,5 +1,6 @@
 package hoa14110071.chieuthusau.foodyversion1.Fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -7,16 +8,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.Button;
+import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TabHost;
 import android.widget.TabWidget;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
+import hoa14110071.chieuthusau.foodyversion1.Activity.ChooseCityActivity;
+import hoa14110071.chieuthusau.foodyversion1.JavaClass.CustomAdapterExpandableListview;
 import hoa14110071.chieuthusau.foodyversion1.JavaClass.DanhMucAdapter;
 import hoa14110071.chieuthusau.foodyversion1.JavaClass.MoiNhatAdapter;
 import hoa14110071.chieuthusau.foodyversion1.Object.Item;
+import hoa14110071.chieuthusau.foodyversion1.Object.Street;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
 import static hoa14110071.chieuthusau.foodyversion1.JavaClass.MoiNhatAdapter.lastIndexChanged;
@@ -37,6 +45,14 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
     private ArrayList<Item> listViewItemArrayListDanhMuc =new ArrayList<>();
 
 
+    private ExpandableListView exLstWhere;
+    private CustomAdapterExpandableListview customAdapterExpandableListview;
+    private List<String> listDistrict;
+    private HashMap<String,List<Street>> mData;
+
+    private Button btnChooseCity;
+
+
     public static int[] defaultImage = {R.drawable.home_ic_filter_latest, R.drawable.home_ic_filter_most_near, R.drawable.home_ic_filter_top_of_week,
             R.drawable.home_ic_filter_tourist, R.drawable.home_ic_filter_ecard, R.drawable.home_ic_filter_most_reservation,
             R.drawable.home_ic_filter_bankcard, R.drawable.home_ic_filter_bankcard
@@ -52,6 +68,7 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
 
 
     private TabWidget tabWidget;
+
 
     public fragmentWhere() {
         // Required empty public constructor
@@ -106,6 +123,30 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
             listViewItemArrayListDanhMuc.add(itemGiaoComVanPhong);
             listViewItemArrayListDanhMuc.add(itemKhuAmThuc);
         }
+
+
+        listDistrict = new ArrayList<>();
+        listDistrict.add("Quận 1");
+        listDistrict.add("Quận 2");
+
+        List<Street> streetsQ1 = new ArrayList<>();
+        streetsQ1.add(new Street("Bà Lê Chân"));
+        streetsQ1.add(new Street("Bến Chương Dương"));
+        streetsQ1.add(new Street("Bến Nghé"));
+        streetsQ1.add(new Street("Bùi Thị Xuân"));
+
+
+
+        List<Street> streetsQ2 = new ArrayList<>();
+        streetsQ2.add(new Street("Bà Lê"));
+        streetsQ2.add(new Street("Bến "));
+        streetsQ2.add(new Street("Bến Nghé"));
+        streetsQ2.add(new Street("Bùi Thị Xuân"));
+
+        mData = new HashMap<>();
+        mData.put(listDistrict.get(0),streetsQ1);
+        mData.put(listDistrict.get(1),streetsQ2);
+
     }
 
     @Override
@@ -134,9 +175,6 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
                 lastIndexChanged=position;
                 moiNhatAdapter.notifyDataSetChanged();
 
-                int tabSelected = tabHost.getCurrentTab();
-//                tabHost.getTabWidget().getChildAt()
-
                 tabHost.setCurrentTab(3);
             }
         });
@@ -146,6 +184,18 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         danhMucAdapter = new DanhMucAdapter(getActivity(), R.layout.list_row_item, listViewItemArrayListDanhMuc);
         lstDanhMucWhere.setAdapter(danhMucAdapter);
 
+
+        exLstWhere = (ExpandableListView) view.findViewById(R.id.exLstWhere);
+        customAdapterExpandableListview = new CustomAdapterExpandableListview(getContext(),listDistrict,mData);
+        exLstWhere.setAdapter(customAdapterExpandableListview);
+        btnChooseCity = (Button) view.findViewById(R.id.btnChooseCity);
+        btnChooseCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getContext(), ChooseCityActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
 

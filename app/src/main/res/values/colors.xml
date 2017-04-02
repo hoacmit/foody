@@ -10,4 +10,6 @@
     <color name="colorGray">#EEEEEE</color>
     <color name="colorGrayButtonWhere">#EAEAEA</color>
     <color name="colorTextButtonWhere">#959595</color>
+    <color name="colorVietNam">#EFEFEF</color>
+    <color name="colorPressed">#786e6e</color>
 </resources>

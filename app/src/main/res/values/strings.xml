@@ -7,7 +7,11 @@
     <string name="huy">Hủy</string>
     <string name="BuiThiNghe">Bùi Thị Nghé</string>
     <string name="duong">33 đường</string>
-
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="doitinhthanh">Đổi tỉnh thành</string>
+    <string name="chontinh_thanhpho">"Chọn Tỉnh/Thành phố</string>
+    <string name="xong">Xong</string>
+    <string name="timnhanh">Tìm nhanh</string>
+    <string name="tudongxacdinhvitri">Tự động xác định vị trí</string>
+    <string name="VietNam">Việt Nam</string>
+    <string name="doiquocgia">Đổi quốc gia</string>
 </resources>
