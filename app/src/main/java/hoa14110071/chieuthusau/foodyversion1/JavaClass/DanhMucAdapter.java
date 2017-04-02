@@ -22,7 +22,7 @@ public class DanhMucAdapter extends ArrayAdapter<Item> {
     int layoutId;
     ArrayList<Item> listViewItemArrayList;
 
-    public static int lastIndexChangedDanhMuc = 0;
+    public static int newIndexChangedDanhMuc = 0;
 
     public DanhMucAdapter(Activity context, int layoutId, ArrayList<Item> listViewItemArrayList) {
         super(context, layoutId, listViewItemArrayList);

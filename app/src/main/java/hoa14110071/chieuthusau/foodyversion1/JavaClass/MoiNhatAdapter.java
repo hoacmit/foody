@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import hoa14110071.chieuthusau.foodyversion1.Object.Category;
 import hoa14110071.chieuthusau.foodyversion1.Object.Item;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
@@ -18,13 +19,17 @@ import hoa14110071.chieuthusau.foodyversion1.R;
  * Created by minhh on 3/28/2017.
  */
 
-public class MoiNhatAdapter extends ArrayAdapter<Item> {
+public class MoiNhatAdapter extends ArrayAdapter<Category> {
     Activity context = null;
     int layoutId;
-    ArrayList<Item> listViewItemArrayList = null;
-    public static int lastIndexChangedMoiNhat = 0;
+    ArrayList<Category> listViewItemArrayList = null;
+    public static int newIndexChangedMoiNhat= 0;
 
-    public MoiNhatAdapter(Activity context, int layoutId, ArrayList<Item> listViewItemArrayList) {
+    public void setContext(Activity context) {
+        this.context = context;
+    }
+
+    public MoiNhatAdapter(Activity context, int layoutId, ArrayList<Category> listViewItemArrayList) {
         super(context, layoutId, listViewItemArrayList);
         this.context = context;
         this.layoutId = layoutId;
@@ -46,16 +51,19 @@ public class MoiNhatAdapter extends ArrayAdapter<Item> {
             viewHolder = (ViewHolder) view.getTag();
         }
 
-        viewHolder.imagePic.setImageResource(listViewItemArrayList.get(position).getImgAnh());
-        viewHolder.textView.setText(listViewItemArrayList.get(position).getTxtName());
-
-        if (listViewItemArrayList.get(position).isCheck()) {
+        if(newIndexChangedMoiNhat == position)
+        {
+            viewHolder.imagePic.setImageBitmap(listViewItemArrayList.get(position).getImagePress());
             viewHolder.textView.setTextColor(context.getResources().getColor(R.color.colorRed));
             viewHolder.imageCheck.setVisibility(View.VISIBLE);
-        } else {
-            viewHolder.imageCheck.setVisibility(View.GONE);
+        }else
+        {
+            viewHolder.imagePic.setImageBitmap(listViewItemArrayList.get(position).getImage());
             viewHolder.textView.setTextColor(context.getResources().getColor(R.color.colorStroke));
+            viewHolder.imageCheck.setVisibility(View.GONE);
         }
+        viewHolder.textView.setText(listViewItemArrayList.get(position).getName());
+
         return view;
     }
 

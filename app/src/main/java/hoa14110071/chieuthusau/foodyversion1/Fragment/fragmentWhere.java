@@ -24,21 +24,24 @@ import hoa14110071.chieuthusau.foodyversion1.Activity.ChooseCityActivity;
 import hoa14110071.chieuthusau.foodyversion1.JavaClass.CustomAdapterExpandableListview;
 import hoa14110071.chieuthusau.foodyversion1.JavaClass.DanhMucAdapter;
 import hoa14110071.chieuthusau.foodyversion1.JavaClass.MoiNhatAdapter;
+import hoa14110071.chieuthusau.foodyversion1.Object.Category;
 import hoa14110071.chieuthusau.foodyversion1.Object.Item;
 import hoa14110071.chieuthusau.foodyversion1.Object.Street;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
-import static hoa14110071.chieuthusau.foodyversion1.JavaClass.DanhMucAdapter.lastIndexChangedDanhMuc;
-import static hoa14110071.chieuthusau.foodyversion1.JavaClass.MoiNhatAdapter.lastIndexChangedMoiNhat;
+import static hoa14110071.chieuthusau.foodyversion1.Activity.MainActivity.categories;
+import static hoa14110071.chieuthusau.foodyversion1.JavaClass.DanhMucAdapter.newIndexChangedDanhMuc;
+import static hoa14110071.chieuthusau.foodyversion1.JavaClass.MoiNhatAdapter.newIndexChangedMoiNhat;
 
 public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListener{
     //    private ViewPager viewPager;
     public static TabHost tabHost;
-    public static String titleChange = "";
 
     private ListView lstMoiNhatWhere;
-    private ArrayList<Item> listViewItemArrayListMoiNhat = new ArrayList<>();
+//    private ArrayList<Item> listViewItemArrayListMoiNhat = new ArrayList<>();
     private MoiNhatAdapter moiNhatAdapter;
+
+    private ArrayList<Category> listViewItemArrayListMoiNhat = new ArrayList<>();
 
 
     private ListView lstDanhMucWhere;
@@ -54,20 +57,22 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
     private Button btnChooseCity;
 
 
-    public static int[] defaultImage = {R.drawable.home_ic_filter_latest, R.drawable.home_ic_filter_most_near, R.drawable.home_ic_filter_top_of_week,
-            R.drawable.home_ic_filter_tourist, R.drawable.home_ic_filter_ecard, R.drawable.home_ic_filter_most_reservation,
-            R.drawable.home_ic_filter_bankcard, R.drawable.home_ic_filter_delivery
-    };
-
-    public static int[] changedImage = {R.drawable.home_ic_filter_latest_act, R.drawable.home_ic_filter_most_near_act, R.drawable.home_ic_filter_top_of_week_act,
-            R.drawable.home_ic_filter_tourist_act, R.drawable.home_ic_filter_ecard_act, R.drawable.home_ic_filter_most_reservation_act,
-            R.drawable.home_ic_filter_bankcard_act, R.drawable.home_ic_filter_delivery_act};
-
-
-    public static String[] arraymoiNhatString = {"Mới nhất", "Gần tôi", "Phổ biến", "Du khách", "Ưu đãi E-card", "Đặt chỗ", "Ưu đãi thẻ", "Đặt giao hàng"};
+//    public static int[] defaultImage = {R.drawable.home_ic_filter_latest, R.drawable.home_ic_filter_most_near, R.drawable.home_ic_filter_top_of_week,
+//            R.drawable.home_ic_filter_tourist, R.drawable.home_ic_filter_ecard, R.drawable.home_ic_filter_most_reservation,
+//            R.drawable.home_ic_filter_bankcard, R.drawable.home_ic_filter_delivery
+//    };
+//
+//    public static int[] changedImage = {R.drawable.home_ic_filter_latest_act, R.drawable.home_ic_filter_most_near_act, R.drawable.home_ic_filter_top_of_week_act,
+//            R.drawable.home_ic_filter_tourist_act, R.drawable.home_ic_filter_ecard_act, R.drawable.home_ic_filter_most_reservation_act,
+//            R.drawable.home_ic_filter_bankcard_act, R.drawable.home_ic_filter_delivery_act};
+//
+//
+//    public static String[] arraymoiNhatString = {"Mới nhất", "Gần tôi", "Phổ biến", "Du khách", "Ưu đãi E-card", "Đặt chỗ", "Ưu đãi thẻ", "Đặt giao hàng"};
 
 
     public static TabWidget tabWidget;
+
+    public static int indexSelected=0;
 
 
     public fragmentWhere() {
@@ -78,12 +83,8 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (listViewItemArrayListMoiNhat.size() == 0) {
-            Item itemMoiNhat = new Item(changedImage[0], arraymoiNhatString[0], true);
-            listViewItemArrayListMoiNhat.add(itemMoiNhat);
-
-            for (int i = 1; i < arraymoiNhatString.length; i++) {
-                Item item = new Item(defaultImage[i], arraymoiNhatString[i], false);
-                listViewItemArrayListMoiNhat.add(item);
+            for (int i = 0; i < categories.size(); i++) {
+                listViewItemArrayListMoiNhat.add(categories.get(i));
             }
         }
 
@@ -164,17 +165,12 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         lstMoiNhatWhere.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listViewItemArrayListMoiNhat.get(lastIndexChangedMoiNhat).setCheck(false);
-                listViewItemArrayListMoiNhat.get(lastIndexChangedMoiNhat).setImgAnh(defaultImage[lastIndexChangedMoiNhat]);
+                newIndexChangedMoiNhat = position;
 
-                listViewItemArrayListMoiNhat.get(position).setCheck(true);
-                listViewItemArrayListMoiNhat.get(position).setImgAnh(changedImage[position]);
-
-                lastIndexChangedMoiNhat = position;
                 moiNhatAdapter.notifyDataSetChanged();
 
                 final TextView tvMoiNhat = (TextView) tabWidget.getChildTabViewAt(0).findViewById(android.R.id.title);
-                tvMoiNhat.setText(listViewItemArrayListMoiNhat.get(position).getTxtName());
+                tvMoiNhat.setText(listViewItemArrayListMoiNhat.get(position).getName());
                 tvMoiNhat.setTextColor(getContext().getResources().getColor(R.color.colorRed));
 
                 tabHost.setCurrentTab(3);
@@ -189,11 +185,11 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         lstDanhMucWhere.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listViewItemArrayListDanhMuc.get(lastIndexChangedDanhMuc).setCheck(false);
+                listViewItemArrayListDanhMuc.get(newIndexChangedDanhMuc).setCheck(false);
 
                 listViewItemArrayListDanhMuc.get(position).setCheck(true);
 
-                lastIndexChangedDanhMuc = position;
+                newIndexChangedDanhMuc = position;
                 danhMucAdapter.notifyDataSetChanged();
 
                 final TextView tvDanhMuc = (TextView) tabWidget.getChildTabViewAt(1).findViewById(android.R.id.title);

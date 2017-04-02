@@ -14,6 +14,8 @@ import java.util.List;
 
 import hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentWhere;
 import hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentEatWhat;
+import hoa14110071.chieuthusau.foodyversion1.JavaClass.Database;
+import hoa14110071.chieuthusau.foodyversion1.Object.Category;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -22,6 +24,10 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout tabLayout;
     private Toolbar toolbar;
 
+
+    public static Database database;
+    public static ArrayList<Category> categories = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,6 +35,14 @@ public class MainActivity extends AppCompatActivity {
         initControls();
         setupViewPager(viewPager);
         setupTablayout(tabLayout);
+
+        database = new Database(this);
+
+        database.openDataBase();
+
+        categories = database.get_Category();
+
+
     }
 
     private void initControls() {
@@ -49,9 +63,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    class ViewPagerAdapter extends FragmentPagerAdapter{
+    class ViewPagerAdapter extends FragmentPagerAdapter {
         private final List<Fragment> mFragmentList = new ArrayList<>();
-        private final List<String>   mFragmentTitleList = new ArrayList<>();
+        private final List<String> mFragmentTitleList = new ArrayList<>();
+
         public ViewPagerAdapter(FragmentManager manager) {
             super(manager);
         }
@@ -71,8 +86,7 @@ public class MainActivity extends AppCompatActivity {
             return mFragmentTitleList.get(position);
         }
 
-        public void addFragment(Fragment fragment,String title)
-        {
+        public void addFragment(Fragment fragment, String title) {
             mFragmentList.add(fragment);
             mFragmentTitleList.add(title);
         }
