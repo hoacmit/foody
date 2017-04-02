@@ -1,15 +1,13 @@
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".Fragment.fragmentWhere_TPHCM">
+    android:layout_height="match_parent">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <LinearLayout
-            android:id="@+id/relative"
+            android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorGray">
@@ -38,9 +36,16 @@
             android:id="@+id/exLstWhere"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/relative"
+            android:layout_below="@+id/linear"
             android:background="@color/colorGray"
-            android:groupIndicator="@null"/>
+            android:groupIndicator="@null" />
     </RelativeLayout>
+    <Button
+        android:id="@+id/btnHuyWhereTPHCM"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@drawable/custom_button"
+        android:text="@string/huy"
+        android:layout_gravity="bottom"/>
 
 </FrameLayout>

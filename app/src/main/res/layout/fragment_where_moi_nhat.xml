@@ -4,17 +4,17 @@
     android:orientation="vertical">
 
     <ListView
+        android:id="@+id/lstMoiNhatWhere"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/lstMoiNhatWhere"
-        android:dividerHeight="1.0sp"
-        android:background="@color/colorGray"/>
+        android:background="@color/colorGray"
+        android:dividerHeight="1.0sp" />
 
     <Button
+        android:id="@+id/btnHuyWhereMoiNhat"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:id="@+id/btnHuyWhereMoiNhat"
         android:layout_gravity="bottom"
-        android:text="@string/huy"
-        android:background="@color/colorWhite"/>
+        android:background="@drawable/custom_button"
+        android:text="@string/huy" />
 </FrameLayout>
