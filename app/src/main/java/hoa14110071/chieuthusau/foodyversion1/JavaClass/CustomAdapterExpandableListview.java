@@ -8,13 +8,15 @@ import android.widget.BaseExpandableListAdapter;
 import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.List;
 
 import hoa14110071.chieuthusau.foodyversion1.Object.Street;
 import hoa14110071.chieuthusau.foodyversion1.R;
+
+import static hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentWhere.setOnChild;
+import static hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentWhere.setOnGroup;
 
 
 public class CustomAdapterExpandableListview extends BaseExpandableListAdapter {
@@ -82,17 +84,18 @@ public class CustomAdapterExpandableListview extends BaseExpandableListAdapter {
                     ((ExpandableListView) parent).expandGroup(groupPosition, true);
             }
         });
+
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"Group",Toast.LENGTH_SHORT).show();
+                setOnGroup(mContext,groupPosition);
             }
         });
         return convertView;
     }
 
     @Override
-    public View getChildView(int groupPosition, int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
+    public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View convertView, ViewGroup parent) {
         if (convertView == null) {
             LayoutInflater layoutInflater = LayoutInflater.from(mContext);
             convertView = layoutInflater.inflate(R.layout.list_row_child_expandable,parent,false);
@@ -102,7 +105,7 @@ public class CustomAdapterExpandableListview extends BaseExpandableListAdapter {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(mContext,"Child",Toast.LENGTH_SHORT).show();
+                setOnChild(mContext,groupPosition,childPosition);
             }
         });
         return convertView;

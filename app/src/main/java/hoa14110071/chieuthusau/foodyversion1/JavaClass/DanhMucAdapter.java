@@ -18,9 +18,11 @@ import hoa14110071.chieuthusau.foodyversion1.R;
  */
 
 public class DanhMucAdapter extends ArrayAdapter<Item> {
-    Activity context = null;
+    Activity context;
     int layoutId;
-    ArrayList<Item> listViewItemArrayList = null;
+    ArrayList<Item> listViewItemArrayList;
+
+    public static int lastIndexChangedDanhMuc = 0;
 
     public DanhMucAdapter(Activity context, int layoutId, ArrayList<Item> listViewItemArrayList) {
         super(context, layoutId, listViewItemArrayList);
@@ -30,32 +32,30 @@ public class DanhMucAdapter extends ArrayAdapter<Item> {
     }
 
     public View getView(final int position, final View convertView, ViewGroup parent) {
-        final ViewHolder viewHolder = new ViewHolder();
         View view = convertView;
-
+        final ViewHolder viewHolder;
         if (view == null) {
             view = LayoutInflater.from(context).inflate(layoutId, null);
+            viewHolder = new ViewHolder();
+
             viewHolder.imagePic = (ImageView) view.findViewById(R.id.imgPic);
             viewHolder.textView = (TextView) view.findViewById(R.id.txtName);
             viewHolder.imageCheck = (ImageView) view.findViewById(R.id.imgCheck);
+            view.setTag(viewHolder);
+        } else {
+            viewHolder = (DanhMucAdapter.ViewHolder) view.getTag();
         }
+
         viewHolder.imagePic.setImageResource(listViewItemArrayList.get(position).getImgAnh());
         viewHolder.textView.setText(listViewItemArrayList.get(position).getTxtName());
-        if(listViewItemArrayList.get(position).isCheck())
-        {
+
+        if (listViewItemArrayList.get(position).isCheck()) {
+            viewHolder.textView.setTextColor(context.getResources().getColor(R.color.colorRed));
             viewHolder.imageCheck.setVisibility(View.VISIBLE);
-        }else
-        {
+        } else {
             viewHolder.imageCheck.setVisibility(View.GONE);
+            viewHolder.textView.setTextColor(context.getResources().getColor(R.color.colorStroke));
         }
-//        view.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                listViewItemArrayList.get(position).setCheck(true);
-//                ViewHolder.checkBox.setChecked(listViewItemArrayList.get(position).isCheck());
-//                titleChange=listViewItemArrayList.get(position).getTxtName();
-//            }
-//        });
         return view;
     }
 

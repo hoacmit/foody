@@ -1,5 +1,6 @@
 package hoa14110071.chieuthusau.foodyversion1.Fragment;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -27,11 +28,12 @@ import hoa14110071.chieuthusau.foodyversion1.Object.Item;
 import hoa14110071.chieuthusau.foodyversion1.Object.Street;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
-import static hoa14110071.chieuthusau.foodyversion1.JavaClass.MoiNhatAdapter.lastIndexChanged;
+import static hoa14110071.chieuthusau.foodyversion1.JavaClass.DanhMucAdapter.lastIndexChangedDanhMuc;
+import static hoa14110071.chieuthusau.foodyversion1.JavaClass.MoiNhatAdapter.lastIndexChangedMoiNhat;
 
-public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListener {
+public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListener{
     //    private ViewPager viewPager;
-    private TabHost tabHost;
+    public static TabHost tabHost;
     public static String titleChange = "";
 
     private ListView lstMoiNhatWhere;
@@ -39,16 +41,15 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
     private MoiNhatAdapter moiNhatAdapter;
 
 
-
     private ListView lstDanhMucWhere;
     private DanhMucAdapter danhMucAdapter;
-    private ArrayList<Item> listViewItemArrayListDanhMuc =new ArrayList<>();
+    private ArrayList<Item> listViewItemArrayListDanhMuc = new ArrayList<>();
 
 
     private ExpandableListView exLstWhere;
     private CustomAdapterExpandableListview customAdapterExpandableListview;
-    private List<String> listDistrict;
-    private HashMap<String,List<Street>> mData;
+    public static List<String> listDistrict;
+    public static HashMap<String, List<Street>> mData;
 
     private Button btnChooseCity;
 
@@ -66,8 +67,7 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
     public static String[] arraymoiNhatString = {"Mới nhất", "Gần tôi", "Phổ biến", "Du khách", "Ưu đãi E-card", "Đặt chỗ", "Ưu đãi thẻ", "Đặt giao hàng"};
 
 
-
-    private TabWidget tabWidget;
+    public static TabWidget tabWidget;
 
 
     public fragmentWhere() {
@@ -88,11 +88,10 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         }
 
 
-
         if (listViewItemArrayListDanhMuc.size() == 0) {
             Item itemDanhMuc = new Item(R.drawable.fd15, "Danh mục", true);
-            Item itemSangTrong = new Item(R.drawable.fd1, "Sang trọng", true);
-            Item itemBuffet = new Item(R.drawable.fd2, "Buffet", true);
+            Item itemSangTrong = new Item(R.drawable.fd1, "Sang trọng", false);
+            Item itemBuffet = new Item(R.drawable.fd2, "Buffet", false);
             Item itemNhaHang = new Item(R.drawable.fd3, "Nhà hàng", false);
             Item itemAnVat = new Item(R.drawable.fd4, "Ăn vặt/vỉa hè", false);
             Item itemAnChay = new Item(R.drawable.fd5, "Ăn chay", false);
@@ -136,7 +135,6 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         streetsQ1.add(new Street("Bùi Thị Xuân"));
 
 
-
         List<Street> streetsQ2 = new ArrayList<>();
         streetsQ2.add(new Street("Bà Lê"));
         streetsQ2.add(new Street("Bến "));
@@ -144,8 +142,8 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         streetsQ2.add(new Street("Bùi Thị Xuân"));
 
         mData = new HashMap<>();
-        mData.put(listDistrict.get(0),streetsQ1);
-        mData.put(listDistrict.get(1),streetsQ2);
+        mData.put(listDistrict.get(0), streetsQ1);
+        mData.put(listDistrict.get(1), streetsQ2);
 
     }
 
@@ -166,14 +164,18 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         lstMoiNhatWhere.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listViewItemArrayListMoiNhat.get(lastIndexChanged).setCheck(false);
-                listViewItemArrayListMoiNhat.get(lastIndexChanged).setImgAnh(defaultImage[lastIndexChanged]);
+                listViewItemArrayListMoiNhat.get(lastIndexChangedMoiNhat).setCheck(false);
+                listViewItemArrayListMoiNhat.get(lastIndexChangedMoiNhat).setImgAnh(defaultImage[lastIndexChangedMoiNhat]);
 
                 listViewItemArrayListMoiNhat.get(position).setCheck(true);
                 listViewItemArrayListMoiNhat.get(position).setImgAnh(changedImage[position]);
 
-                lastIndexChanged=position;
+                lastIndexChangedMoiNhat = position;
                 moiNhatAdapter.notifyDataSetChanged();
+
+                final TextView tvMoiNhat = (TextView) tabWidget.getChildTabViewAt(0).findViewById(android.R.id.title);
+                tvMoiNhat.setText(listViewItemArrayListMoiNhat.get(position).getTxtName());
+                tvMoiNhat.setTextColor(getContext().getResources().getColor(R.color.colorRed));
 
                 tabHost.setCurrentTab(3);
             }
@@ -184,10 +186,29 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         danhMucAdapter = new DanhMucAdapter(getActivity(), R.layout.list_row_item, listViewItemArrayListDanhMuc);
         lstDanhMucWhere.setAdapter(danhMucAdapter);
 
+        lstDanhMucWhere.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                listViewItemArrayListDanhMuc.get(lastIndexChangedDanhMuc).setCheck(false);
+
+                listViewItemArrayListDanhMuc.get(position).setCheck(true);
+
+                lastIndexChangedDanhMuc = position;
+                danhMucAdapter.notifyDataSetChanged();
+
+                final TextView tvDanhMuc = (TextView) tabWidget.getChildTabViewAt(1).findViewById(android.R.id.title);
+                tvDanhMuc.setText(listViewItemArrayListDanhMuc.get(position).getTxtName());
+                tvDanhMuc.setTextColor(getContext().getResources().getColor(R.color.colorRed));
+
+                tabHost.setCurrentTab(3);
+            }
+        });
+
 
         exLstWhere = (ExpandableListView) view.findViewById(R.id.exLstWhere);
-        customAdapterExpandableListview = new CustomAdapterExpandableListview(getContext(),listDistrict,mData);
+        customAdapterExpandableListview = new CustomAdapterExpandableListview(getContext(), listDistrict, mData);
         exLstWhere.setAdapter(customAdapterExpandableListview);
+
         btnChooseCity = (Button) view.findViewById(R.id.btnChooseCity);
         btnChooseCity.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -196,8 +217,6 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
                 startActivity(intent);
             }
         });
-
-
 
         return view;
     }
@@ -249,133 +268,30 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
 
     }
 
-
-
-
-    // Inflate the layout for this fragment
-//        View view = inflater.inflate(R.layout.fragment_where, container, false);
-//        tabHost = (FragmentTabHost) view.findViewById(R.id.tabhost);
-//        viewPager = (ViewPager) view.findViewById(R.id.viewPager);
-//        tabHost = new FragmentTabHost(getActivity());
-//        tabHost.setup(getActivity(), getChildFragmentManager(), R.id.realtabcontent);
-//        tabHost.addTab(tabHost.newTabSpec("Mới nhất").setIndicator("Mới nhất"), fragmentWhere_MoiNhat.class, null);
-//        tabHost.addTab(tabHost.newTabSpec("Danh mục").setIndicator("Danh mục"), fragmentWhere_DanhMuc.class, null);
-//        tabHost.addTab(tabHost.newTabSpec("TPHCM").setIndicator("TPHCM"), fragmentWhere_TPHCM.class, null);
-//        tabHost.addTab(tabHost.newTabSpec("MAIN").setIndicator("MAIN"), fragmentWhere_main.class, null);
-//        SelectTabMain();
-//        tabHost.setOnTabChangedListener(this);
-//
-//
-//        LinearLayout tabOne = (LinearLayout) tabHost.getTabWidget().getChildTabViewAt(0);
-//        final TextView tabOneTitle = (TextView) tabOne.findViewById(android.R.id.title);
-//        LinearLayout tabTwo = (LinearLayout) tabHost.getTabWidget().getChildTabViewAt(1);
-//        final TextView tabTwoTitle = (TextView) tabTwo.findViewById(android.R.id.title);
-//        LinearLayout tabThree = (LinearLayout) tabHost.getTabWidget().getChildTabViewAt(2);
-//        final TextView tabThreeTitle = (TextView) tabThree.findViewById(android.R.id.title);
-
-
-//        setupViewPager(viewPager);
-    //setupTabHost(tabHost);
-//        tabOne.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View view) {
-//                tabOneTitle.setText(titleChange);
-//                return true;
-//            }
-//        });
-//
-//        tabTwo.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View view) {
-//                tabTwoTitle.setText("New Tab 2");
-//                return true;
-//            }
-//        });
-//
-//        tabThree.setOnLongClickListener(new View.OnLongClickListener() {
-//            @Override
-//            public boolean onLongClick(View view) {
-//                tabThreeTitle.setText("New Tab 3");
-//                return true;
-//                    }
-//                });
-//        tabOne.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                tabOneTitle.setText(titleChange);
-//            }
-//        });
-//        return tabHost;
-//        return view;
-//    }
-
-    // fake content for tabhost
-//    class FakeContent implements TabHost.TabContentFactory {
-//        private final Context mcontext;
-//
-//        public FakeContent(Context context) {
-//            mcontext = context;
-//        }
-//
-//        @Override
-//        public View createTabContent(String tag) {
-//            View v = new View(mcontext);
-//            v.setMinimumHeight(0);
-//            v.setMinimumWidth(0);
-//            return v;
-//        }
-//    }
-
-//    private void setupTabHost(TabHost tabHost) {
-//        tabHost.setup();
-//        String tabNames[] = {"Mới nhất", "Danh mục", "TPHCM"};
-//
-//        for (int i = 0; i < tabNames.length; i++) {
-//            TabHost.TabSpec tabSpec;
-//            tabSpec = tabHost.newTabSpec(tabNames[i]);
-//            tabSpec.setIndicator(tabNames[i]);
-//            tabSpec.setContent(new FakeContent(getContext()));
-//            tabHost.addTab(tabSpec);
-//        }
-//        tabHost.setOnTabChangedListener(this);
-
-//    }
-
-//    private void setupViewPager(ViewPager viewPager) {
-//        ViewPagerAdapter adapter = new ViewPagerAdapter(getFragmentManager());
-//        adapter.addFragment(new fragmentWhere_MoiNhat());
-//        adapter.addFragment(new fragmentWhere_DanhMuc());
-//        adapter.addFragment(new fragmentWhere_TPHCM());
-//        viewPager.setAdapter(adapter);
-//        viewPager.addOnPageChangeListener(this);
-//    }
-
-//    //Viewpagerlistener
-//    @Override
-//    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-//
-//    }
-//
-//    @Override
-//    public void onPageSelected(int position) {
-//        tabHost.setCurrentTab(position);
-//    }
-//
-//    @Override
-//    public void onPageScrollStateChanged(int state) {
-//
-//    }
-
     //TabHostlistener
     @Override
     public void onTabChanged(String tabId) {
-        for (int i=0 ; i< tabWidget.getChildCount();i++)
-        {
+        for (int i = 0; i < tabWidget.getChildCount(); i++) {
             tabWidget.getChildAt(i).setBackgroundResource(R.drawable.background_tabhost_unselected);
         }
         tabWidget.getChildAt(tabHost.getCurrentTab()).setBackgroundResource(R.drawable.background_tabhost_selected);
     }
 
 
+    public static void setOnGroup(Context context, int groupPosition)
+    {
+        final TextView tvTPHCM = (TextView) tabHost.getTabWidget().getChildTabViewAt(2).findViewById(android.R.id.title);
+        tvTPHCM.setText(listDistrict.get(groupPosition));
+        tvTPHCM.setTextColor(context.getResources().getColor(R.color.colorRed));
+        tabHost.setCurrentTab(3);
+    }
+
+    public static void setOnChild(Context context,int groupPosition,int childPosition)
+    {
+        final TextView tvTPHCM = (TextView) tabWidget.getChildTabViewAt(2).findViewById(android.R.id.title);
+        tvTPHCM.setText(String.valueOf(mData.get(listDistrict.get(groupPosition)).get(childPosition).getStreetName()));
+        tvTPHCM.setTextColor(context.getResources().getColor(R.color.colorRed));
+        tabHost.setCurrentTab(3);
+    }
 }
 

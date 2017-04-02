@@ -11,7 +11,7 @@
         android:layout_toRightOf="@+id/imgPic"
         android:layout_marginLeft="10dp"
         android:textStyle="bold"
-        android:textSize="16sp"/>
+        android:textSize="16sp" />
 
     <Button
         android:id="@+id/btnChoosen"
@@ -19,5 +19,5 @@
         android:layout_height="wrap_content"
         android:text="3 tinh"
         android:layout_alignParentRight="true"
-        android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp"/>
+        android:drawableEnd="@drawable/ic_keyboard_arrow_right_black_24dp" />
 </RelativeLayout>

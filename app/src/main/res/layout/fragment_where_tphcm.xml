@@ -38,14 +38,17 @@
             android:layout_height="match_parent"
             android:layout_below="@+id/linear"
             android:background="@color/colorGray"
-            android:groupIndicator="@null" />
+            android:groupIndicator="@null"
+            android:focusable="true"
+            android:clickable="false"/>
     </RelativeLayout>
+
     <Button
         android:id="@+id/btnHuyWhereTPHCM"
         android:layout_width="match_parent"
         android:layout_height="50dp"
+        android:layout_gravity="bottom"
         android:background="@drawable/custom_button"
-        android:text="@string/huy"
-        android:layout_gravity="bottom"/>
+        android:text="@string/huy" />
 
 </FrameLayout>
