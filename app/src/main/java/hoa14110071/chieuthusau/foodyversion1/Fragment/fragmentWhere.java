@@ -56,12 +56,12 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
 
     public static int[] defaultImage = {R.drawable.home_ic_filter_latest, R.drawable.home_ic_filter_most_near, R.drawable.home_ic_filter_top_of_week,
             R.drawable.home_ic_filter_tourist, R.drawable.home_ic_filter_ecard, R.drawable.home_ic_filter_most_reservation,
-            R.drawable.home_ic_filter_bankcard, R.drawable.home_ic_filter_bankcard
+            R.drawable.home_ic_filter_bankcard, R.drawable.home_ic_filter_delivery
     };
 
     public static int[] changedImage = {R.drawable.home_ic_filter_latest_act, R.drawable.home_ic_filter_most_near_act, R.drawable.home_ic_filter_top_of_week_act,
             R.drawable.home_ic_filter_tourist_act, R.drawable.home_ic_filter_ecard_act, R.drawable.home_ic_filter_most_reservation_act,
-            R.drawable.home_ic_filter_bankcard_act, R.drawable.home_ic_filter_bankcard_act};
+            R.drawable.home_ic_filter_bankcard_act, R.drawable.home_ic_filter_delivery_act};
 
 
     public static String[] arraymoiNhatString = {"Mới nhất", "Gần tôi", "Phổ biến", "Du khách", "Ưu đãi E-card", "Đặt chỗ", "Ưu đãi thẻ", "Đặt giao hàng"};
