@@ -263,6 +263,8 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         final TextView tvTPHCM = (TextView) tabWidget.getChildTabViewAt(2).findViewById(android.R.id.title);
         tvTPHCM.setText(CityName);
         tvTPHCM.setTextColor(context.getResources().getColor(R.color.colorPressed));
+
+        tabHost.setCurrentTab(3);
     }
 }
 
