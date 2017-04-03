@@ -25,11 +25,12 @@ import hoa14110071.chieuthusau.foodyversion1.JavaClass.CustomAdapterExpandableLi
 import hoa14110071.chieuthusau.foodyversion1.JavaClass.DanhMucAdapter;
 import hoa14110071.chieuthusau.foodyversion1.JavaClass.MoiNhatAdapter;
 import hoa14110071.chieuthusau.foodyversion1.Object.Category;
-import hoa14110071.chieuthusau.foodyversion1.Object.Item;
+import hoa14110071.chieuthusau.foodyversion1.Object.ListDatabase;
 import hoa14110071.chieuthusau.foodyversion1.Object.Street;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
 import static hoa14110071.chieuthusau.foodyversion1.Activity.MainActivity.categories;
+import static hoa14110071.chieuthusau.foodyversion1.Activity.MainActivity.listDatabases;
 import static hoa14110071.chieuthusau.foodyversion1.JavaClass.DanhMucAdapter.newIndexChangedDanhMuc;
 import static hoa14110071.chieuthusau.foodyversion1.JavaClass.MoiNhatAdapter.newIndexChangedMoiNhat;
 
@@ -38,7 +39,7 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
     public static TabHost tabHost;
 
     private ListView lstMoiNhatWhere;
-//    private ArrayList<Item> listViewItemArrayListMoiNhat = new ArrayList<>();
+//    private ArrayList<ListDatabase> listViewItemArrayListMoiNhat = new ArrayList<>();
     private MoiNhatAdapter moiNhatAdapter;
 
     private ArrayList<Category> listViewItemArrayListMoiNhat = new ArrayList<>();
@@ -46,13 +47,13 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
 
     private ListView lstDanhMucWhere;
     private DanhMucAdapter danhMucAdapter;
-    private ArrayList<Item> listViewItemArrayListDanhMuc = new ArrayList<>();
+    private ArrayList<ListDatabase> listViewListArrayListDatabaseDanhMuc = new ArrayList<>();
 
 
     private ExpandableListView exLstWhere;
     private CustomAdapterExpandableListview customAdapterExpandableListview;
-    public static List<String> listDistrict;
-    public static HashMap<String, List<Street>> mData;
+    public static ArrayList<String> listDistrict;
+    public static HashMap<String,List<Street>> mData;
 
     private Button btnChooseCity;
 
@@ -88,55 +89,64 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
             }
         }
 
-
-        if (listViewItemArrayListDanhMuc.size() == 0) {
-            Item itemDanhMuc = new Item(R.drawable.fd15, "Danh mục", true);
-            Item itemSangTrong = new Item(R.drawable.fd1, "Sang trọng", false);
-            Item itemBuffet = new Item(R.drawable.fd2, "Buffet", false);
-            Item itemNhaHang = new Item(R.drawable.fd3, "Nhà hàng", false);
-            Item itemAnVat = new Item(R.drawable.fd4, "Ăn vặt/vỉa hè", false);
-            Item itemAnChay = new Item(R.drawable.fd5, "Ăn chay", false);
-            Item itemCafe = new Item(R.drawable.fd6, "Café/Dessert", false);
-            Item itemQuanAn = new Item(R.drawable.fd7, "Quán ăn", false);
-            Item itemBar = new Item(R.drawable.fd8, "Bar/Pub", false);
-            Item itemQuanNhau = new Item(R.drawable.fd9, "Quán nhậu", false);
-            Item itemBeerclub = new Item(R.drawable.fd10, "Beer club", false);
-            Item itemTiemBanh = new Item(R.drawable.fd11, "TIệm bánh", false);
-            Item itemTiectannoi = new Item(R.drawable.fd12, "Tiệc tận nơi", false);
-            Item itemShopOnline = new Item(R.drawable.fd13, "Shop Online", false);
-            Item itemGiaoComVanPhong = new Item(R.drawable.fd14, "Giao cơm văn phòng", false);
-            Item itemKhuAmThuc = new Item(R.drawable.fd15, "Khu ẩm thức", false);
-            listViewItemArrayListDanhMuc.add(itemDanhMuc);
-            listViewItemArrayListDanhMuc.add(itemSangTrong);
-            listViewItemArrayListDanhMuc.add(itemBuffet);
-            listViewItemArrayListDanhMuc.add(itemNhaHang);
-            listViewItemArrayListDanhMuc.add(itemAnVat);
-            listViewItemArrayListDanhMuc.add(itemAnChay);
-            listViewItemArrayListDanhMuc.add(itemCafe);
-            listViewItemArrayListDanhMuc.add(itemQuanAn);
-            listViewItemArrayListDanhMuc.add(itemBar);
-            listViewItemArrayListDanhMuc.add(itemQuanNhau);
-            listViewItemArrayListDanhMuc.add(itemBeerclub);
-            listViewItemArrayListDanhMuc.add(itemTiemBanh);
-            listViewItemArrayListDanhMuc.add(itemTiectannoi);
-            listViewItemArrayListDanhMuc.add(itemShopOnline);
-            listViewItemArrayListDanhMuc.add(itemGiaoComVanPhong);
-            listViewItemArrayListDanhMuc.add(itemKhuAmThuc);
+        if (listViewListArrayListDatabaseDanhMuc.size() == 0)
+        {
+            for (int i = 0; i < listDatabases.size(); i++) {
+                listViewListArrayListDatabaseDanhMuc.add(listDatabases.get(i));
+            }
         }
+
+
+
+
+//        if (listViewListArrayListDatabaseDanhMuc.size() == 0) {
+//            ListDatabase listDanhMuc = new ListDatabase(R.drawable.fd15, "Danh mục", true);
+//            ListDatabase listSangTrong = new ListDatabase(R.drawable.fd1, "Sang trọng", false);
+//            ListDatabase listBuffet = new ListDatabase(R.drawable.fd2, "Buffet", false);
+//            ListDatabase listNhaHang = new ListDatabase(R.drawable.fd3, "Nhà hàng", false);
+//            ListDatabase listAnVat = new ListDatabase(R.drawable.fd4, "Ăn vặt/vỉa hè", false);
+//            ListDatabase listAnChay = new ListDatabase(R.drawable.fd5, "Ăn chay", false);
+//            ListDatabase listCafe = new ListDatabase(R.drawable.fd6, "Café/Dessert", false);
+//            ListDatabase listQuanAn = new ListDatabase(R.drawable.fd7, "Quán ăn", false);
+//            ListDatabase listBar = new ListDatabase(R.drawable.fd8, "Bar/Pub", false);
+//            ListDatabase listQuanNhau = new ListDatabase(R.drawable.fd9, "Quán nhậu", false);
+//            ListDatabase listBeerclub = new ListDatabase(R.drawable.fd10, "Beer club", false);
+//            ListDatabase listTiemBanh = new ListDatabase(R.drawable.fd11, "TIệm bánh", false);
+//            ListDatabase listTiectannoi = new ListDatabase(R.drawable.fd12, "Tiệc tận nơi", false);
+//            ListDatabase listShopOnline = new ListDatabase(R.drawable.fd13, "Shop Online", false);
+//            ListDatabase listGiaoComVanPhong = new ListDatabase(R.drawable.fd14, "Giao cơm văn phòng", false);
+//            ListDatabase listKhuAmThuc = new ListDatabase(R.drawable.fd15, "Khu ẩm thức", false);
+//            listViewListArrayListDatabaseDanhMuc.add(listDanhMuc);
+//            listViewListArrayListDatabaseDanhMuc.add(listSangTrong);
+//            listViewListArrayListDatabaseDanhMuc.add(listBuffet);
+//            listViewListArrayListDatabaseDanhMuc.add(listNhaHang);
+//            listViewListArrayListDatabaseDanhMuc.add(listAnVat);
+//            listViewListArrayListDatabaseDanhMuc.add(listAnChay);
+//            listViewListArrayListDatabaseDanhMuc.add(listCafe);
+//            listViewListArrayListDatabaseDanhMuc.add(listQuanAn);
+//            listViewListArrayListDatabaseDanhMuc.add(listBar);
+//            listViewListArrayListDatabaseDanhMuc.add(listQuanNhau);
+//            listViewListArrayListDatabaseDanhMuc.add(listBeerclub);
+//            listViewListArrayListDatabaseDanhMuc.add(listTiemBanh);
+//            listViewListArrayListDatabaseDanhMuc.add(listTiectannoi);
+//            listViewListArrayListDatabaseDanhMuc.add(listShopOnline);
+//            listViewListArrayListDatabaseDanhMuc.add(listGiaoComVanPhong);
+//            listViewListArrayListDatabaseDanhMuc.add(listKhuAmThuc);
+//        }
 
 
         listDistrict = new ArrayList<>();
         listDistrict.add("Quận 1");
         listDistrict.add("Quận 2");
 
-        List<Street> streetsQ1 = new ArrayList<>();
+        ArrayList<Street> streetsQ1 = new ArrayList<>();
         streetsQ1.add(new Street("Bà Lê Chân"));
         streetsQ1.add(new Street("Bến Chương Dương"));
         streetsQ1.add(new Street("Bến Nghé"));
         streetsQ1.add(new Street("Bùi Thị Xuân"));
 
 
-        List<Street> streetsQ2 = new ArrayList<>();
+        ArrayList<Street> streetsQ2 = new ArrayList<>();
         streetsQ2.add(new Street("Bà Lê"));
         streetsQ2.add(new Street("Bến "));
         streetsQ2.add(new Street("Bến Nghé"));
@@ -179,21 +189,19 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
 
 
         lstDanhMucWhere = (ListView) view.findViewById(R.id.lstDanhMucWhere);
-        danhMucAdapter = new DanhMucAdapter(getActivity(), R.layout.list_row_item, listViewItemArrayListDanhMuc);
+        danhMucAdapter = new DanhMucAdapter(getActivity(), R.layout.list_row_item, listViewListArrayListDatabaseDanhMuc);
         lstDanhMucWhere.setAdapter(danhMucAdapter);
 
         lstDanhMucWhere.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                listViewItemArrayListDanhMuc.get(newIndexChangedDanhMuc).setCheck(false);
-
-                listViewItemArrayListDanhMuc.get(position).setCheck(true);
 
                 newIndexChangedDanhMuc = position;
+
                 danhMucAdapter.notifyDataSetChanged();
 
                 final TextView tvDanhMuc = (TextView) tabWidget.getChildTabViewAt(1).findViewById(android.R.id.title);
-                tvDanhMuc.setText(listViewItemArrayListDanhMuc.get(position).getTxtName());
+                tvDanhMuc.setText(listViewListArrayListDatabaseDanhMuc.get(position).getName());
                 tvDanhMuc.setTextColor(getContext().getResources().getColor(R.color.colorRed));
 
                 tabHost.setCurrentTab(3);

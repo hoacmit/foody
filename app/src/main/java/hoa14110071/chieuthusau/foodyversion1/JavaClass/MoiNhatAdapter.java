@@ -11,7 +11,6 @@ import android.widget.TextView;
 import java.util.ArrayList;
 
 import hoa14110071.chieuthusau.foodyversion1.Object.Category;
-import hoa14110071.chieuthusau.foodyversion1.Object.Item;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
 

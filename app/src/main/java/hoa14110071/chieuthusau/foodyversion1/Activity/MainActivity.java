@@ -1,5 +1,7 @@
 package hoa14110071.chieuthusau.foodyversion1.Activity;
 
+import android.database.SQLException;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -8,7 +10,12 @@ import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +23,11 @@ import hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentWhere;
 import hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentEatWhat;
 import hoa14110071.chieuthusau.foodyversion1.JavaClass.Database;
 import hoa14110071.chieuthusau.foodyversion1.Object.Category;
+import hoa14110071.chieuthusau.foodyversion1.Object.ListDatabase;
 import hoa14110071.chieuthusau.foodyversion1.R;
+
+import static hoa14110071.chieuthusau.foodyversion1.JavaClass.Database.DATABASE_NAME;
+import static hoa14110071.chieuthusau.foodyversion1.JavaClass.Database.DB_PATH_SUFFIX;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -27,6 +38,7 @@ public class MainActivity extends AppCompatActivity {
 
     public static Database database;
     public static ArrayList<Category> categories = new ArrayList<>();
+    public static ArrayList<ListDatabase> listDatabases = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,12 +50,60 @@ public class MainActivity extends AppCompatActivity {
 
         database = new Database(this);
 
-        database.openDataBase();
+        openDataBase();
 
         categories = database.get_Category();
 
+        listDatabases = database.get_ListDatabase();
+
+//        database.close();
+
 
     }
+
+
+
+    public SQLiteDatabase openDataBase() throws SQLException {
+        File dbFile = getDatabasePath(DATABASE_NAME);
+
+        if (!dbFile.exists()) {
+            CopyDataBaseFromAsset();
+            System.out.println("Copying sucess from Assets folder");
+        }
+
+        return SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.NO_LOCALIZED_COLLATORS | SQLiteDatabase.CREATE_IF_NECESSARY);
+    }
+
+    private void CopyDataBaseFromAsset() {
+        try {
+            InputStream myInput = getAssets().open(DATABASE_NAME);
+            String outFile = getPath();
+
+            File f = new File(getApplicationInfo().dataDir + DB_PATH_SUFFIX);
+
+            if (!f.exists()) {
+                f.mkdir();
+            }
+            OutputStream myOutput = new FileOutputStream(outFile);
+
+            byte[] buffer = new byte[1024];
+            int length;
+            while ((length = myInput.read(buffer)) > 0) {
+                myOutput.write(buffer, 0, length);
+            }
+            myOutput.flush();
+            myOutput.close();
+            myInput.close();
+
+        } catch (Exception ex) {
+            Log.d("Error", ex.toString());
+        }
+    }
+
+    private String getPath() {
+        return getApplicationInfo().dataDir + DB_PATH_SUFFIX + DATABASE_NAME;
+    }
+
 
     private void initControls() {
         toolbar = (Toolbar) findViewById(R.id.toolbar);

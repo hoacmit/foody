@@ -14,15 +14,16 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 import hoa14110071.chieuthusau.foodyversion1.Object.Category;
+import hoa14110071.chieuthusau.foodyversion1.Object.ListDatabase;
 
 /**
  * Created by minhh on 4/2/2017.
  */
 
 public class Database extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
-    private static final String DATABASE_NAME = "Foody.sqlite";
-    private static final String DB_PATH_SUFFIX = "/databases/";
+    public static final int DATABASE_VERSION = 1;
+    public static final String DATABASE_NAME = "Foody.sqlite";
+    public static final String DB_PATH_SUFFIX = "/databases/";
     static Context ctx;
 
     public Database(Context context) {
@@ -30,16 +31,7 @@ public class Database extends SQLiteOpenHelper {
         ctx = context;
     }
 
-    public SQLiteDatabase openDataBase() throws SQLException {
-        File dbFile = ctx.getDatabasePath(DATABASE_NAME);
 
-        if (!dbFile.exists()) {
-            CopyDataBaseFromAsset();
-            System.out.println("Copying sucess from Assets folder");
-        }
-
-        return SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.NO_LOCALIZED_COLLATORS | SQLiteDatabase.CREATE_IF_NECESSARY);
-    }
 
 
     public ArrayList<Category> get_Category() {
@@ -58,35 +50,23 @@ public class Database extends SQLiteOpenHelper {
         return null;
     }
 
-    private void CopyDataBaseFromAsset() {
-        try {
-            InputStream myInput = ctx.getAssets().open(DATABASE_NAME);
-            String outFile = getPath();
-
-            File f = new File(ctx.getApplicationInfo().dataDir + DB_PATH_SUFFIX);
-
-            if (!f.exists()) {
-                f.mkdir();
-            }
-            OutputStream myOutput = new FileOutputStream(outFile);
-
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = myInput.read(buffer)) > 0) {
-                myOutput.write(buffer, 0, length);
-            }
-            myOutput.flush();
-            myOutput.close();
-            myInput.close();
-
-        } catch (Exception ex) {
-            Log.d("Error", ex.toString());
+    public ArrayList<ListDatabase> get_ListDatabase() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from list", null);
+        ArrayList<ListDatabase> listDatabases = new ArrayList<>();
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                ListDatabase listDatabase = new ListDatabase(cursor.getInt(0), cursor.getString(1), cursor.getBlob(2));
+                listDatabases.add(listDatabase);
+            } while (cursor.moveToNext());
+            cursor.close();
+            db.close();
+            return listDatabases;
         }
+        return null;
     }
 
-    private String getPath() {
-        return ctx.getApplicationInfo().dataDir + DB_PATH_SUFFIX + DATABASE_NAME;
-    }
+
 
 
     @Override

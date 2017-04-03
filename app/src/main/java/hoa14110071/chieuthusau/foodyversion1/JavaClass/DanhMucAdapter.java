@@ -10,25 +10,25 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
-import hoa14110071.chieuthusau.foodyversion1.Object.Item;
+import hoa14110071.chieuthusau.foodyversion1.Object.ListDatabase;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
 /**
  * Created by minhh on 3/21/2017.
  */
 
-public class DanhMucAdapter extends ArrayAdapter<Item> {
+public class DanhMucAdapter extends ArrayAdapter<ListDatabase> {
     Activity context;
     int layoutId;
-    ArrayList<Item> listViewItemArrayList;
+    ArrayList<ListDatabase> listViewListArrayListDatabase;
 
     public static int newIndexChangedDanhMuc = 0;
 
-    public DanhMucAdapter(Activity context, int layoutId, ArrayList<Item> listViewItemArrayList) {
-        super(context, layoutId, listViewItemArrayList);
+    public DanhMucAdapter(Activity context, int layoutId, ArrayList<ListDatabase> listViewListArrayListDatabase) {
+        super(context, layoutId, listViewListArrayListDatabase);
         this.context = context;
         this.layoutId = layoutId;
-        this.listViewItemArrayList = listViewItemArrayList;
+        this.listViewListArrayListDatabase = listViewListArrayListDatabase;
     }
 
     public View getView(final int position, final View convertView, ViewGroup parent) {
@@ -46,16 +46,18 @@ public class DanhMucAdapter extends ArrayAdapter<Item> {
             viewHolder = (DanhMucAdapter.ViewHolder) view.getTag();
         }
 
-        viewHolder.imagePic.setImageResource(listViewItemArrayList.get(position).getImgAnh());
-        viewHolder.textView.setText(listViewItemArrayList.get(position).getTxtName());
-
-        if (listViewItemArrayList.get(position).isCheck()) {
+        if (newIndexChangedDanhMuc == position) {
             viewHolder.textView.setTextColor(context.getResources().getColor(R.color.colorRed));
             viewHolder.imageCheck.setVisibility(View.VISIBLE);
         } else {
-            viewHolder.imageCheck.setVisibility(View.GONE);
             viewHolder.textView.setTextColor(context.getResources().getColor(R.color.colorStroke));
+            viewHolder.imageCheck.setVisibility(View.GONE);
         }
+        if (listViewListArrayListDatabase.get(position).getImage() != null) {
+            viewHolder.imagePic.setImageBitmap(listViewListArrayListDatabase.get(position).getImage());
+        }
+
+        viewHolder.textView.setText(listViewListArrayListDatabase.get(position).getName());
         return view;
     }
 
