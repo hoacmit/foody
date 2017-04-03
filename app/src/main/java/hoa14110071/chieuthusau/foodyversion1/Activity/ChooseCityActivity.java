@@ -8,14 +8,18 @@ import android.widget.ListView;
 
 import java.util.ArrayList;
 
+import hoa14110071.chieuthusau.foodyversion1.JavaClass.CityAdapter;
 import hoa14110071.chieuthusau.foodyversion1.Object.City;
 import hoa14110071.chieuthusau.foodyversion1.R;
+
+import static hoa14110071.chieuthusau.foodyversion1.Activity.MainActivity.cities;
 
 public class ChooseCityActivity extends AppCompatActivity {
     private Toolbar toolbarCity;
 
     private ListView lstCity;
-    private ArrayList<City> cities=new ArrayList<>();
+    private CityAdapter cityAdapter;
+
 
 
     @Override
@@ -31,7 +35,8 @@ public class ChooseCityActivity extends AppCompatActivity {
         }
 
         lstCity = (ListView) findViewById(R.id.lstCity);
-
+        cityAdapter = new CityAdapter(this,R.layout.list_row_city,cities);
+        lstCity.setAdapter(cityAdapter);
 
 
     }
