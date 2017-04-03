@@ -24,6 +24,7 @@ import hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentEatWhat;
 import hoa14110071.chieuthusau.foodyversion1.JavaClass.Database;
 import hoa14110071.chieuthusau.foodyversion1.Object.Category;
 import hoa14110071.chieuthusau.foodyversion1.Object.City;
+import hoa14110071.chieuthusau.foodyversion1.Object.District;
 import hoa14110071.chieuthusau.foodyversion1.Object.ListDatabase;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
@@ -40,7 +41,8 @@ public class MainActivity extends AppCompatActivity {
     public static Database database;
     public static ArrayList<Category> categories = new ArrayList<>();
     public static ArrayList<ListDatabase> listDatabases = new ArrayList<>();
-    public static ArrayList<City> cities;
+    public static ArrayList<City> cities = new ArrayList<>();
+    public static ArrayList<District> districts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +61,10 @@ public class MainActivity extends AppCompatActivity {
         listDatabases = database.get_ListDatabase();
 
         cities = database.get_City();
+
+        String CityId = String.valueOf(cities.get(0).getId());
+
+        districts = database.get_District(CityId);
 //        database.close();
 
 

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import java.util.HashMap;
 import java.util.List;
 
+import hoa14110071.chieuthusau.foodyversion1.Object.District;
 import hoa14110071.chieuthusau.foodyversion1.Object.Street;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
@@ -21,10 +22,10 @@ import static hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentWhere.setOn
 
 public class CustomAdapterExpandableListview extends BaseExpandableListAdapter {
     private Context mContext;
-    private List<String> mHeaderGroup;
-    private HashMap<String, List<Street>> mDataChild;
+    private List<District> mHeaderGroup;
+    private HashMap<District, List<Street>> mDataChild;
 
-    public CustomAdapterExpandableListview(Context mContext, List<String> mHeaderGroup, HashMap<String, List<Street>> mDataChild) {
+    public CustomAdapterExpandableListview(Context mContext, List<District> mHeaderGroup, HashMap<District, List<Street>> mDataChild) {
         this.mContext = mContext;
         this.mHeaderGroup = mHeaderGroup;
         this.mDataChild = mDataChild;
@@ -72,9 +73,10 @@ public class CustomAdapterExpandableListview extends BaseExpandableListAdapter {
             convertView = layoutInflater.inflate(R.layout.list_row_header_expandable,parent,false);
         }
         TextView tvDistrictName = (TextView) convertView.findViewById(R.id.tvDistrictName);
-        Button btnChoosen = (Button) convertView.findViewById(R.id.btnChoosen);
-        tvDistrictName.setText(mHeaderGroup.get(groupPosition));
-        btnChoosen.setText("");
+        Button btnChoosen = (Button) convertView.findViewById(R.id.btnChildCountStreet);
+        btnChoosen.setAllCaps(false);
+        tvDistrictName.setText(mHeaderGroup.get(groupPosition).getName());
+        btnChoosen.setText(String.valueOf(mHeaderGroup.get(groupPosition).getCountStreet()+" đường"));
         btnChoosen.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

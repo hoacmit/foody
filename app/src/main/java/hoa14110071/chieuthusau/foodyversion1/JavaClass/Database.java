@@ -15,6 +15,7 @@ import java.util.ArrayList;
 
 import hoa14110071.chieuthusau.foodyversion1.Object.Category;
 import hoa14110071.chieuthusau.foodyversion1.Object.City;
+import hoa14110071.chieuthusau.foodyversion1.Object.District;
 import hoa14110071.chieuthusau.foodyversion1.Object.ListDatabase;
 
 /**
@@ -79,6 +80,23 @@ public class Database extends SQLiteOpenHelper {
             cursor.close();
             db.close();
             return listCities;
+        }
+        return null;
+    }
+
+
+    public ArrayList<District> get_District(String CityId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select * from district where district.cityid ="+CityId, null);
+        ArrayList<District> districts = new ArrayList<>();
+        if (cursor != null && cursor.moveToFirst()) {
+            do {
+                District district = new District(cursor.getInt(0), cursor.getString(1),cursor.getInt(2),cursor.getInt(3));
+                districts.add(district);
+            } while (cursor.moveToNext());
+            cursor.close();
+            db.close();
+            return districts;
         }
         return null;
     }

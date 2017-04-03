@@ -18,7 +18,7 @@
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/btnChoosen"
+        android:id="@+id/btnChildCountStreet"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

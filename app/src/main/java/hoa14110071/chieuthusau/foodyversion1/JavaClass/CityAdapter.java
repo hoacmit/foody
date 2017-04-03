@@ -25,6 +25,8 @@ public class CityAdapter extends ArrayAdapter<City> {
     int layoutId;
     ArrayList<City> arrayCities;
 
+    public static int nextIndexChangedCity = 0;
+
     public CityAdapter(Activity context, int layoutId, ArrayList<City> arrayCities) {
         super(context, layoutId, arrayCities);
         this.context = context;
@@ -49,6 +51,14 @@ public class CityAdapter extends ArrayAdapter<City> {
             viewHolder = (ViewHolder) view.getTag();
         }
 
+        if(nextIndexChangedCity == position)
+        {
+            viewHolder.tvNameCity.setTextColor(context.getResources().getColor(R.color.colorPrimary));
+            viewHolder.imgCheckCity.setVisibility(View.VISIBLE);
+        }else {
+            viewHolder.tvNameCity.setTextColor(context.getResources().getColor(R.color.colorBlack));
+            viewHolder.imgCheckCity.setVisibility(View.INVISIBLE);
+        }
 
         viewHolder.tvNameCity.setText(arrayCities.get(position).getName());
         return view;

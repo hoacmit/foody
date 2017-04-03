@@ -1,9 +1,13 @@
 package hoa14110071.chieuthusau.foodyversion1.Activity;
 
+import android.content.Intent;
 import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 
 import java.util.ArrayList;
@@ -13,12 +17,15 @@ import hoa14110071.chieuthusau.foodyversion1.Object.City;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
 import static hoa14110071.chieuthusau.foodyversion1.Activity.MainActivity.cities;
+import static hoa14110071.chieuthusau.foodyversion1.JavaClass.CityAdapter.nextIndexChangedCity;
 
 public class ChooseCityActivity extends AppCompatActivity {
     private Toolbar toolbarCity;
 
     private ListView lstCity;
     private CityAdapter cityAdapter;
+
+    private Button btnXongCity;
 
 
 
@@ -37,6 +44,24 @@ public class ChooseCityActivity extends AppCompatActivity {
         lstCity = (ListView) findViewById(R.id.lstCity);
         cityAdapter = new CityAdapter(this,R.layout.list_row_city,cities);
         lstCity.setAdapter(cityAdapter);
+
+        lstCity.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                nextIndexChangedCity = position;
+
+                cityAdapter.notifyDataSetChanged();
+            }
+        });
+
+        btnXongCity = (Button) findViewById(R.id.btnXongCity);
+        btnXongCity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(getBaseContext(),MainActivity.class);
+                startActivity(intent);
+            }
+        });
 
 
     }
