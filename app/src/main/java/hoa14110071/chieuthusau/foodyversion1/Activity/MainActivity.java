@@ -23,6 +23,7 @@ import hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentWhere;
 import hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentEatWhat;
 import hoa14110071.chieuthusau.foodyversion1.JavaClass.Database;
 import hoa14110071.chieuthusau.foodyversion1.Object.Category;
+import hoa14110071.chieuthusau.foodyversion1.Object.City;
 import hoa14110071.chieuthusau.foodyversion1.Object.ListDatabase;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
@@ -39,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     public static Database database;
     public static ArrayList<Category> categories = new ArrayList<>();
     public static ArrayList<ListDatabase> listDatabases = new ArrayList<>();
+    public static ArrayList<City> cities;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,12 +52,13 @@ public class MainActivity extends AppCompatActivity {
 
         database = new Database(this);
 
-        openDataBase();
+        database.openDataBase();
 
         categories = database.get_Category();
 
         listDatabases = database.get_ListDatabase();
 
+        cities = database.get_City();
 //        database.close();
 
 
@@ -63,46 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-    public SQLiteDatabase openDataBase() throws SQLException {
-        File dbFile = getDatabasePath(DATABASE_NAME);
 
-        if (!dbFile.exists()) {
-            CopyDataBaseFromAsset();
-            System.out.println("Copying sucess from Assets folder");
-        }
-
-        return SQLiteDatabase.openDatabase(dbFile.getPath(), null, SQLiteDatabase.NO_LOCALIZED_COLLATORS | SQLiteDatabase.CREATE_IF_NECESSARY);
-    }
-
-    private void CopyDataBaseFromAsset() {
-        try {
-            InputStream myInput = getAssets().open(DATABASE_NAME);
-            String outFile = getPath();
-
-            File f = new File(getApplicationInfo().dataDir + DB_PATH_SUFFIX);
-
-            if (!f.exists()) {
-                f.mkdir();
-            }
-            OutputStream myOutput = new FileOutputStream(outFile);
-
-            byte[] buffer = new byte[1024];
-            int length;
-            while ((length = myInput.read(buffer)) > 0) {
-                myOutput.write(buffer, 0, length);
-            }
-            myOutput.flush();
-            myOutput.close();
-            myInput.close();
-
-        } catch (Exception ex) {
-            Log.d("Error", ex.toString());
-        }
-    }
-
-    private String getPath() {
-        return getApplicationInfo().dataDir + DB_PATH_SUFFIX + DATABASE_NAME;
-    }
 
 
     private void initControls() {

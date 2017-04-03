@@ -135,26 +135,26 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
 //        }
 
 
-        listDistrict = new ArrayList<>();
-        listDistrict.add("Quận 1");
-        listDistrict.add("Quận 2");
-
-        ArrayList<Street> streetsQ1 = new ArrayList<>();
-        streetsQ1.add(new Street("Bà Lê Chân"));
-        streetsQ1.add(new Street("Bến Chương Dương"));
-        streetsQ1.add(new Street("Bến Nghé"));
-        streetsQ1.add(new Street("Bùi Thị Xuân"));
-
-
-        ArrayList<Street> streetsQ2 = new ArrayList<>();
-        streetsQ2.add(new Street("Bà Lê"));
-        streetsQ2.add(new Street("Bến "));
-        streetsQ2.add(new Street("Bến Nghé"));
-        streetsQ2.add(new Street("Bùi Thị Xuân"));
-
-        mData = new HashMap<>();
-        mData.put(listDistrict.get(0), streetsQ1);
-        mData.put(listDistrict.get(1), streetsQ2);
+//        listDistrict = new ArrayList<>();
+//        listDistrict.add("Quận 1");
+//        listDistrict.add("Quận 2");
+//
+//        ArrayList<Street> streetsQ1 = new ArrayList<>();
+//        streetsQ1.add(new Street("Bà Lê Chân"));
+//        streetsQ1.add(new Street("Bến Chương Dương"));
+//        streetsQ1.add(new Street("Bến Nghé"));
+//        streetsQ1.add(new Street("Bùi Thị Xuân"));
+//
+//
+//        ArrayList<Street> streetsQ2 = new ArrayList<>();
+//        streetsQ2.add(new Street("Bà Lê"));
+//        streetsQ2.add(new Street("Bến "));
+//        streetsQ2.add(new Street("Bến Nghé"));
+//        streetsQ2.add(new Street("Bùi Thị Xuân"));
+//
+//        mData = new HashMap<>();
+//        mData.put(listDistrict.get(0), streetsQ1);
+//        mData.put(listDistrict.get(1), streetsQ2);
 
     }
 
@@ -209,9 +209,9 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         });
 
 
-        exLstWhere = (ExpandableListView) view.findViewById(R.id.exLstWhere);
-        customAdapterExpandableListview = new CustomAdapterExpandableListview(getContext(), listDistrict, mData);
-        exLstWhere.setAdapter(customAdapterExpandableListview);
+//        exLstWhere = (ExpandableListView) view.findViewById(R.id.exLstWhere);
+//        customAdapterExpandableListview = new CustomAdapterExpandableListview(getContext(), listDistrict, mData);
+//        exLstWhere.setAdapter(customAdapterExpandableListview);
 
         btnChooseCity = (Button) view.findViewById(R.id.btnChooseCity);
         btnChooseCity.setOnClickListener(new View.OnClickListener() {

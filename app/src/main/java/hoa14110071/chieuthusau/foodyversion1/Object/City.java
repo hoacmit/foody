@@ -9,13 +9,10 @@ import java.util.List;
 public class City {
     int Id;
     String Name;
-    List<District> districts;
 
-
-    public City(int id, String name, List<District> districts) {
+    public City(int id, String name) {
         Id = id;
         Name = name;
-        this.districts = districts;
     }
 
     public int getId() {
@@ -26,7 +23,4 @@ public class City {
         return Name;
     }
 
-    public List<District> getDistricts() {
-        return districts;
-    }
 }

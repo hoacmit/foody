@@ -3,18 +3,25 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ListView
-        android:id="@+id/lstMoiNhatWhere"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorGray"
-        android:dividerHeight="1.0sp" />
+        android:orientation="vertical">
+        <ListView
+            android:id="@+id/lstMoiNhatWhere"
+            android:layout_width="match_parent"
+            android:layout_height="0dip"
+            android:background="@color/colorGray"
+            android:dividerHeight="1.0sp"
+            android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/btnHuyWhereMoiNhat"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_gravity="bottom"
-        android:background="@drawable/custom_button"
-        android:text="@string/huy" />
+        <Button
+            android:id="@+id/btnHuyWhereMoiNhat"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:layout_gravity="bottom"
+            android:background="@drawable/custom_button"
+            android:text="@string/huy" />
+    </LinearLayout>
+
 </FrameLayout>
