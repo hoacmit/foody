@@ -1,5 +1,6 @@
 package hoa14110071.chieuthusau.foodyversion1.Fragment;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ExpandableListAdapter;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.TabHost;
@@ -32,6 +34,7 @@ import hoa14110071.chieuthusau.foodyversion1.Object.Street;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
 import static hoa14110071.chieuthusau.foodyversion1.Activity.MainActivity.categories;
+import static hoa14110071.chieuthusau.foodyversion1.Activity.MainActivity.database;
 import static hoa14110071.chieuthusau.foodyversion1.Activity.MainActivity.districts;
 import static hoa14110071.chieuthusau.foodyversion1.Activity.MainActivity.listDatabases;
 import static hoa14110071.chieuthusau.foodyversion1.JavaClass.DanhMucAdapter.newIndexChangedDanhMuc;
@@ -53,8 +56,9 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
     private ArrayList<ListDatabase> listViewListArrayListDatabaseDanhMuc = new ArrayList<>();
 
 
-    private ExpandableListView exLstWhere;
-    private CustomAdapterExpandableListview customAdapterExpandableListview;
+    private static ExpandableListView exLstWhere;
+    private static CustomAdapterExpandableListview customAdapterExpandableListview;
+
     public static ArrayList<District> listDistrict;
     public static HashMap<District, List<Street>> mData;
 
@@ -91,8 +95,9 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         streetsQ1.add(new Street(2,"Bến Nghé"));
         streetsQ1.add(new Street(3,"Bùi Thị Xuân"));
 
+        listDistrict= districts;
+
         for (int i = 0; i < districts.size(); i++) {
-            listDistrict.add(i, districts.get(i));
 
             mData.put(listDistrict.get(i),streetsQ1);
         }
@@ -159,7 +164,7 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getContext(), ChooseCityActivity.class);
-                startActivity(intent);
+                getActivity().startActivityForResult(intent,1);
             }
         });
 
@@ -239,6 +244,25 @@ public class fragmentWhere extends Fragment implements TabHost.OnTabChangeListen
         tvTPHCM.setText(String.valueOf(mData.get(listDistrict.get(groupPosition)).get(childPosition).getStreetName()));
         tvTPHCM.setTextColor(context.getResources().getColor(R.color.colorRed));
         tabHost.setCurrentTab(3);
+    }
+
+    public static void changeCity(Context context,String CityName)
+    {
+        listDistrict = districts;
+        ArrayList<Street> streetsQ1 = new ArrayList<>();
+        streetsQ1.add(new Street(0, "Bà Lê Chân"));
+        streetsQ1.add(new Street(1,"Bến Chương Dương"));
+        streetsQ1.add(new Street(2,"Bến Nghé"));
+        streetsQ1.add(new Street(3,"Bùi Thị Xuân"));
+        mData.clear();
+        for (int i = 0; i < districts.size(); i++) {
+            mData.put(listDistrict.get(i),streetsQ1);
+        }
+        customAdapterExpandableListview = new CustomAdapterExpandableListview(context,listDistrict,mData);
+        exLstWhere.setAdapter(customAdapterExpandableListview);
+        final TextView tvTPHCM = (TextView) tabWidget.getChildTabViewAt(2).findViewById(android.R.id.title);
+        tvTPHCM.setText(CityName);
+        tvTPHCM.setTextColor(context.getResources().getColor(R.color.colorPressed));
     }
 }
 

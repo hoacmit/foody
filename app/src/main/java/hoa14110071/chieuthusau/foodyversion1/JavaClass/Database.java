@@ -84,6 +84,18 @@ public class Database extends SQLiteOpenHelper {
         return null;
     }
 
+    public String get_CityName(String CityId) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("select name from city where id ="+CityId, null);
+        if (cursor != null && cursor.moveToFirst()) {
+            String cityName = cursor.getString(0);
+            cursor.close();
+            db.close();
+            return cityName;
+        }
+        return null;
+    }
+
 
     public ArrayList<District> get_District(String CityId) {
         SQLiteDatabase db = this.getReadableDatabase();

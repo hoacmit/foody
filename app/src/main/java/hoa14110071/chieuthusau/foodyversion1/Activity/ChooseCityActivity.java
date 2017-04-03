@@ -1,7 +1,7 @@
 package hoa14110071.chieuthusau.foodyversion1.Activity;
 
+import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
@@ -10,10 +10,8 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
-import java.util.ArrayList;
 
 import hoa14110071.chieuthusau.foodyversion1.JavaClass.CityAdapter;
-import hoa14110071.chieuthusau.foodyversion1.Object.City;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
 import static hoa14110071.chieuthusau.foodyversion1.Activity.MainActivity.cities;
@@ -58,8 +56,10 @@ public class ChooseCityActivity extends AppCompatActivity {
         btnXongCity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(getBaseContext(),MainActivity.class);
-                startActivity(intent);
+                Intent returnIntent = new Intent();
+                returnIntent.putExtra("Id",String.valueOf(cities.get(nextIndexChangedCity).getId()));
+                setResult(Activity.RESULT_OK,returnIntent);
+                finish();
             }
         });
 

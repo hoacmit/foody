@@ -1,5 +1,7 @@
 package hoa14110071.chieuthusau.foodyversion1.Activity;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.design.widget.TabLayout;
@@ -28,6 +30,8 @@ import hoa14110071.chieuthusau.foodyversion1.Object.District;
 import hoa14110071.chieuthusau.foodyversion1.Object.ListDatabase;
 import hoa14110071.chieuthusau.foodyversion1.R;
 
+import static hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentWhere.changeCity;
+import static hoa14110071.chieuthusau.foodyversion1.Fragment.fragmentWhere.listDistrict;
 import static hoa14110071.chieuthusau.foodyversion1.JavaClass.Database.DATABASE_NAME;
 import static hoa14110071.chieuthusau.foodyversion1.JavaClass.Database.DB_PATH_SUFFIX;
 
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     public static ArrayList<ListDatabase> listDatabases = new ArrayList<>();
     public static ArrayList<City> cities = new ArrayList<>();
     public static ArrayList<District> districts = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -69,10 +74,6 @@ public class MainActivity extends AppCompatActivity {
 
 
     }
-
-
-
-
 
 
     private void initControls() {
@@ -122,5 +123,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == Activity.RESULT_OK) {
+                String CityId = data.getStringExtra("Id");
+                districts = database.get_District(CityId);
+                String CityName = database.get_CityName(CityId);
+                changeCity(this,CityName);
+            }
+        }
+    }
 
 }
